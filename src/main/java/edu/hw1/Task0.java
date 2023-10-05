@@ -13,6 +13,7 @@ public class Task0 {
         LOGGER.info("Привет, мир!");
     }
 
+    @SuppressWarnings("UncommentedMain")
     public static void main(String[] args) {
         printHelloWorld();
     }

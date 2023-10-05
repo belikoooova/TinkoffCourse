@@ -13,10 +13,9 @@ public class Task8 {
             for (int j = 0; j < 8; ++j) {
                 if (board[i][j] == 1) {
                     for (int c = 0; c < 8; ++c) {
-                        if (i + XMOVES[c] >= 0 && i + XMOVES[c] < 8 && j + YMOVES[c] >= 0 && j + YMOVES[c] < 8 &&
-                            (board[i + XMOVES[c]][j + YMOVES[c]] == 1)) {
+                        if (i + XMOVES[c] >= 0 && i + XMOVES[c] < 8 && j + YMOVES[c] >= 0 && j + YMOVES[c] < 8
+                            && (board[i + XMOVES[c]][j + YMOVES[c]] == 1)) {
                             return false;
-
                         }
                     }
                 }

@@ -9,11 +9,11 @@ public class Task2 {
         if (number == 0) {
             return 1;
         }
-        number = Math.abs(number);
+        long posNumber = Math.abs(number);
         int count = 0;
-        while (number > 0) {
+        while (posNumber > 0) {
             ++count;
-            number /= 10;
+            posNumber /= 10;
         }
         return count;
     }
