@@ -1,6 +1,9 @@
 package edu.hw1;
 
 public class Task4 {
+    private Task4() {
+    }
+
     @SuppressWarnings("MagicNumber")
     public static String fixString(String toFix) {
         if (toFix == null) {

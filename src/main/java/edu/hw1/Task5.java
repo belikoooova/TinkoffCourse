@@ -1,8 +1,9 @@
 package edu.hw1;
 
-import java.util.Objects;
-
 public class Task5 {
+    private Task5() {
+    }
+
     @SuppressWarnings("MagicNumber")
     public static boolean isPalindromeDescendant(long number) {
         String s = Long.toString(number);

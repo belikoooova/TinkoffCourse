@@ -1,6 +1,9 @@
 package edu.hw1;
 
 public class Task1 {
+    private Task1() {
+    }
+
     @SuppressWarnings("MagicNumber")
     public static long minutesToSeconds(String time) {
         if (time == null || !time.matches("\\d+:\\d+")) {

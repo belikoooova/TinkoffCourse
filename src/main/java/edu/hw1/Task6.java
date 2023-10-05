@@ -3,6 +3,9 @@ package edu.hw1;
 import java.util.Arrays;
 
 public class Task6 {
+    private Task6() {
+    }
+
     @SuppressWarnings("MagicNumber")
     public static int countK(int n) {
         if (n == 6174) {

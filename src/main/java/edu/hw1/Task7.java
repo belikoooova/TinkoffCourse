@@ -1,6 +1,9 @@
 package edu.hw1;
 
 public class Task7 {
+    private Task7() {
+    }
+
     @SuppressWarnings("MagicNumber")
     public static int rotateRight(int n, int shift) {
         int size = (int) (Math.log10(n) / Math.log10(2)) + 1;

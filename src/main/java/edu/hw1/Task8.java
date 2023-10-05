@@ -1,8 +1,11 @@
 package edu.hw1;
 
 public class Task8 {
-    private static final int[] xMoves = new int[] {2, 1, -1, -2, -2, -1, 1, 2};
-    private static final int[] yMoves = new int[] {1, 2, 2, 1, -1, -2, -2, -1};
+    private Task8() {
+    }
+
+    private static final int[] XMOVES = new int[] {2, 1, -1, -2, -2, -1, 1, 2};
+    private static final int[] YMOVES = new int[] {1, 2, 2, 1, -1, -2, -2, -1};
 
     @SuppressWarnings("MagicNumber")
     public static boolean knightBoardCapture(int[][] board) {
@@ -10,10 +13,10 @@ public class Task8 {
             for (int j = 0; j < 8; ++j) {
                 if (board[i][j] == 1) {
                     for (int c = 0; c < 8; ++c) {
-                        if (i + xMoves[c] >= 0 && i + xMoves[c] < 8 && j + yMoves[c] >= 0 && j + yMoves[c] < 8) {
-                            if (board[i + xMoves[c]][j + yMoves[c]] == 1) {
-                                return false;
-                            }
+                        if (i + XMOVES[c] >= 0 && i + XMOVES[c] < 8 && j + YMOVES[c] >= 0 && j + YMOVES[c] < 8 &&
+                            (board[i + XMOVES[c]][j + YMOVES[c]] == 1)) {
+                            return false;
+
                         }
                     }
                 }
