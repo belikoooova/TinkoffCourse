@@ -14,7 +14,7 @@ public class Task3 {
         if (a1.length == 0) {
             return true;
         }
-        return Arrays.stream(a1).min().getAsInt() > Arrays.stream(a2).min().getAsInt() &&
-            Arrays.stream(a1).max().getAsInt() < Arrays.stream(a2).max().getAsInt();
+        return Arrays.stream(a1).min().getAsInt() > Arrays.stream(a2).min().getAsInt()
+            && Arrays.stream(a1).max().getAsInt() < Arrays.stream(a2).max().getAsInt();
     }
 }
