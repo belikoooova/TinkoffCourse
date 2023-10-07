@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@SuppressWarnings("MagicNumber")
 public class Task8Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("1 тест из условия")
     void firstSample() {
@@ -28,7 +28,6 @@ public class Task8Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("2 тест из условия")
     void secondSample() {
@@ -51,7 +50,6 @@ public class Task8Test {
         assertThat(result).isFalse();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("3 тест из условия")
     void thirdSample() {

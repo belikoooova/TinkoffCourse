@@ -4,18 +4,17 @@ public class Task4 {
     private Task4() {
     }
 
-    @SuppressWarnings("MagicNumber")
-    public static String fixString(String toFix) {
-        if (toFix == null) {
+    public static String fixString(String stringToFix) {
+        if (stringToFix == null) {
             return null;
         }
         StringBuilder fixed = new StringBuilder();
-        for (int i = 0; i < toFix.length() / 2; ++i) {
-            fixed.append(toFix.charAt(2 * i + 1));
-            fixed.append(toFix.charAt(2 * i));
+        for (int i = 0; i < stringToFix.length() / 2; ++i) {
+            fixed.append(stringToFix.charAt(2 * i + 1));
+            fixed.append(stringToFix.charAt(2 * i));
         }
-        if (toFix.length() % 2 != 0) {
-            fixed.append(toFix.charAt(toFix.length() - 1));
+        if (stringToFix.length() % 2 != 0) {
+            fixed.append(stringToFix.charAt(stringToFix.length() - 1));
         }
         return fixed.toString();
     }

@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@SuppressWarnings("MagicNumber")
 public class Task2Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Положительное 10-значное число")
     void posTenDigits() {
@@ -19,7 +19,6 @@ public class Task2Test {
         assertThat(result).isEqualTo(10);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Ноль")
     void zero() {
@@ -33,7 +32,6 @@ public class Task2Test {
         assertThat(result).isEqualTo(1);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Положительное 1-значное число")
     void posOneDigit() {
@@ -47,7 +45,6 @@ public class Task2Test {
         assertThat(result).isEqualTo(1);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Отрицательное 7-значное число")
     void negSevenDigits() {

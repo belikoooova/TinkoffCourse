@@ -6,25 +6,39 @@ public class Task6 {
     private Task6() {
     }
 
-    @SuppressWarnings("MagicNumber")
-    public static int countK(int n) {
-        if (n == 6174) {
-            return 0;
+    private static final int KAPREKAR_NUMBER = 6174;
+    private static final int MIN_4_DIGIT_NUMBER = 1000;
+    private static final int MAX_4_DIGIT_NUMBER = 9999;
+    private static final int ERROR_EXIT_CODE = -1;
+    private static final int NUMBER_OF_DIGITS = 4;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int TEN = 10;
+    private static final int HUNDRED = 100;
+
+    public static int countK(int n) throws Exception {
+        if (n == KAPREKAR_NUMBER) {
+            return ZERO;
         }
-        if (n <= 1000 || n > 10000) {
-            return -1;
+        if (n < MIN_4_DIGIT_NUMBER || n > MAX_4_DIGIT_NUMBER) {
+            return ERROR_EXIT_CODE;
         }
         char[] charArray = Integer.toString(n).toCharArray();
-        int[] digits = new int[4];
-        for (int i = 0; i < 4; ++i) {
+        int[] digits = new int[NUMBER_OF_DIGITS];
+        for (int i = ZERO; i < NUMBER_OF_DIGITS; ++i) {
             digits[i] = Character.getNumericValue(charArray[i]);
         }
         digits = Arrays.stream(digits).sorted().toArray();
-        if (digits[0] == digits[3]) {
-            return -1; // Если все цифры числа одинаковые - функция не работает.
+        if (digits[ZERO] == digits[THREE]) {
+            return ERROR_EXIT_CODE; // Если все цифры числа одинаковые - функция не работает.
         }
-        int firstNum = digits[0] * 1000 + digits[1] * 100 + digits[2] * 10 + digits[3];
-        int secondNum = digits[3] * 1000 + digits[2] * 100 + digits[1] * 10 + digits[0];
-        return countK(Math.abs(firstNum - secondNum)) + 1;
+        int firstNum = digits[ZERO] * MAX_4_DIGIT_NUMBER + digits[ONE] * HUNDRED + digits[TWO] * TEN + digits[THREE];
+        int secondNum = digits[THREE] * MAX_4_DIGIT_NUMBER + digits[TWO] * HUNDRED + digits[ONE] * TEN + digits[ZERO];
+        if (countK(Math.abs(firstNum - secondNum)) + ONE >= 8) {
+            throw new Exception("The number of steps exceeded");
+        }
+        return countK(Math.abs(firstNum - secondNum)) + ONE;
     }
 }

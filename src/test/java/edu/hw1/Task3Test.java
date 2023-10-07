@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@SuppressWarnings("MagicNumber")
 public class Task3Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Пустой внешний массив")
     void emptyExternal() {
@@ -20,7 +20,6 @@ public class Task3Test {
         assertThat(result).isFalse();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Пустой внутренний массив")
     void emptyInternal() {
@@ -35,7 +34,6 @@ public class Task3Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Во внешнем массиве 1 элемент")
     void oneElementExternal() {
@@ -50,7 +48,6 @@ public class Task3Test {
         assertThat(result).isFalse();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Включается")
     void isTrue() {
@@ -65,7 +62,6 @@ public class Task3Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Не включается")
     void isFalse() {

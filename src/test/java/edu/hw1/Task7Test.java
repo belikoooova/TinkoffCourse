@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@SuppressWarnings("MagicNumber")
 public class Task7Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Однозначное число")
     void oneSigned() {
@@ -19,7 +19,6 @@ public class Task7Test {
         assertThat(result).isEqualTo(1);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Сдвиг вправо")
     void rightShift() {
@@ -33,7 +32,6 @@ public class Task7Test {
         assertThat(result).isEqualTo(4);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Сдвиг влево")
     void leftShift() {

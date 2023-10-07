@@ -4,16 +4,18 @@ public class Task2 {
     private Task2() {
     }
 
-    @SuppressWarnings("MagicNumber")
+    private static final int ONE = 1;
+    private static final int BASE = 10;
+
     public static int countDigit(long number) {
         if (number == 0) {
-            return 1;
+            return ONE;
         }
         long posNumber = Math.abs(number);
         int count = 0;
         while (posNumber > 0) {
             ++count;
-            posNumber /= 10;
+            posNumber /= BASE;
         }
         return count;
     }

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Task1Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Два двоеточия (некорректная строка)")
     void badStringFirst() {
@@ -19,7 +18,6 @@ public class Task1Test {
         assertThat(result).isEqualTo(-1L);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Есть буквы (некорректная строка)")
     void badStringSecond() {
@@ -33,7 +31,6 @@ public class Task1Test {
         assertThat(result).isEqualTo(-1L);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Превышение количества секунд (некорректная строка)")
     void badStringThird() {
@@ -47,7 +44,6 @@ public class Task1Test {
         assertThat(result).isEqualTo(-1L);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Пустая строка")
     void EmptyString() {
@@ -61,7 +57,6 @@ public class Task1Test {
         assertThat(result).isEqualTo(-1L);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("< 60 минут, < 60 секунд (корректная строка)")
     void correctStringFirst() {
@@ -75,7 +70,6 @@ public class Task1Test {
         assertThat(result).isEqualTo(44L * 60 + 33);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("> 60 минут, < 60 секунд (корректная строка)")
     void correctStringSecond() {
@@ -89,7 +83,6 @@ public class Task1Test {
         assertThat(result).isEqualTo(144L * 60 + 33);
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Ведущие нули (корректная строка)")
     void correctStringThird() {

@@ -4,16 +4,19 @@ public class Task1 {
     private Task1() {
     }
 
-    @SuppressWarnings("MagicNumber")
+    private static final long NUMBER_OF_SECONDS = 60;
+    private static final long ERROR_EXIT_CODE = -1;
+
     public static long minutesToSeconds(String time) {
         if (time == null || !time.matches("\\d+:\\d+")) {
-            return -1;
+            return ERROR_EXIT_CODE;
         }
-        long minutes = Long.parseLong(time.split(":")[0]);
-        long seconds = Long.parseLong(time.split(":")[1]);
-        if (seconds >= 60) {
-            return -1;
+        var splittedTime = time.split(":");
+        long minutes = Long.parseLong(splittedTime[0]);
+        long seconds = Long.parseLong(splittedTime[1]);
+        if (seconds >= NUMBER_OF_SECONDS) {
+            return ERROR_EXIT_CODE;
         }
-        return minutes * 60 + seconds;
+        return minutes * NUMBER_OF_SECONDS + seconds;
     }
 }

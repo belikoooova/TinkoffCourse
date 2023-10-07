@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@SuppressWarnings("MagicNumber")
 public class Task4Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Пустая строка")
     void emptyString() {
@@ -19,7 +19,6 @@ public class Task4Test {
         assertThat(result).isEmpty();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Cтрока - null")
     void nullString() {
@@ -33,7 +32,6 @@ public class Task4Test {
         assertThat(result).isNull();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Cтрока четной длины")
     void oddLengthString() {

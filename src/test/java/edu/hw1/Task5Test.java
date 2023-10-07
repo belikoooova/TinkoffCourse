@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@SuppressWarnings("MagicNumber")
 public class Task5Test {
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Сразу верно")
     void immediatelyTrue() {
@@ -19,7 +19,6 @@ public class Task5Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Верно после 1 действия")
     void afterFirstStepTrue() {
@@ -33,7 +32,6 @@ public class Task5Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Верно после 2 действия")
     void afterSecondStepTrue() {
@@ -47,7 +45,6 @@ public class Task5Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Верно после 3 действия")
     void afterThirdStepTrue() {
@@ -61,7 +58,6 @@ public class Task5Test {
         assertThat(result).isTrue();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Нечетное (верно)")
     void oddTrue() {
@@ -76,7 +72,6 @@ public class Task5Test {
         // 23615 -> (2 + 3)(6 + 1)5 = 575
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Нечетное (неверно)")
     void oddFalse() {
@@ -90,7 +85,6 @@ public class Task5Test {
         assertThat(result).isFalse();
     }
 
-    @SuppressWarnings("MagicNumber")
     @Test
     @DisplayName("Четное (неверно)")
     void evenFalse() {
