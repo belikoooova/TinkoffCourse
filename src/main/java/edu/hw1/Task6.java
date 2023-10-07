@@ -17,6 +17,7 @@ public class Task6 {
     private static final int THREE = 3;
     private static final int TEN = 10;
     private static final int HUNDRED = 100;
+    private static final int MAX_RECURSION_STEP_COUNT = 7;
 
     public static int countK(int n) throws Exception {
         if (n == KAPREKAR_NUMBER) {
@@ -34,9 +35,9 @@ public class Task6 {
         if (digits[ZERO] == digits[THREE]) {
             return ERROR_EXIT_CODE; // Если все цифры числа одинаковые - функция не работает.
         }
-        int firstNum = digits[ZERO] * MAX_4_DIGIT_NUMBER + digits[ONE] * HUNDRED + digits[TWO] * TEN + digits[THREE];
-        int secondNum = digits[THREE] * MAX_4_DIGIT_NUMBER + digits[TWO] * HUNDRED + digits[ONE] * TEN + digits[ZERO];
-        if (countK(Math.abs(firstNum - secondNum)) + ONE >= 8) {
+        int firstNum = digits[ZERO] * MIN_4_DIGIT_NUMBER + digits[ONE] * HUNDRED + digits[TWO] * TEN + digits[THREE];
+        int secondNum = digits[THREE] * MIN_4_DIGIT_NUMBER + digits[TWO] * HUNDRED + digits[ONE] * TEN + digits[ZERO];
+        if (countK(Math.abs(firstNum - secondNum)) + ONE > MAX_RECURSION_STEP_COUNT) {
             throw new Exception("The number of steps exceeded");
         }
         return countK(Math.abs(firstNum - secondNum)) + ONE;
