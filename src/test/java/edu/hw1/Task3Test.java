@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SuppressWarnings("MagicNumber")
 public class Task3Test {
     @Test
     @DisplayName("Пустой внешний массив")

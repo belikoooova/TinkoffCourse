@@ -11,7 +11,7 @@ public class Task8 {
     public static boolean knightBoardCapture(int[][] board) {
         for (int i = 0; i < BOARD_SIZE; ++i) {
             for (int j = 0; j < BOARD_SIZE; ++j) {
-                if (board[i][j] == 1 && !checkNeighboursIsSafety(board, i, j)) {
+                if (board[i][j] == 1 && !isMoveAllowed(board, i, j)) {
                     return false;
                 }
             }
@@ -19,7 +19,7 @@ public class Task8 {
         return true;
     }
 
-    private static boolean checkNeighboursIsSafety(int[][] board, int i, int j) {
+    private static boolean isMoveAllowed(int[][] board, int i, int j) {
         for (int c = 0; c < BOARD_SIZE; ++c) {
             if (i + XMOVES[c] >= 0 && i + XMOVES[c] < BOARD_SIZE && j + YMOVES[c] >= 0 && j + YMOVES[c] < BOARD_SIZE
                 && (board[i + XMOVES[c]][j + YMOVES[c]] == 1)) {

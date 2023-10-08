@@ -4,13 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SuppressWarnings("MagicNumber")
 public class Task5Test {
+    private static final long ALREADY_TRUE_NUMBER = 11;
+    private static final long TRUE_AFTER_ONE_STEP_NUMBER = 23336014;
+    private static final long TRUE_AFTER_TWO_STEPS_NUMBER = 13001120;
+    private static final long TRUE_AFTER_THREE_STEPS_NUMBER = 11211230;
+    private static final long TRUE_ODD_DIGITS_NUMBER = 23615;
+    private static final long FALSE_ODD_DIGITS_NUMBER = 223;
+    private static final long FALSE_EVEN_DIGITS_NUMBER = 14575903;
     @Test
     @DisplayName("Сразу верно")
     void immediatelyTrue() {
         // given
-        long number = 11;
+        long number = ALREADY_TRUE_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
@@ -23,7 +29,7 @@ public class Task5Test {
     @DisplayName("Верно после 1 действия")
     void afterFirstStepTrue() {
         // given
-        long number = 23336014;
+        long number = TRUE_AFTER_ONE_STEP_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
@@ -36,7 +42,7 @@ public class Task5Test {
     @DisplayName("Верно после 2 действия")
     void afterSecondStepTrue() {
         // given
-        long number = 13001120;
+        long number = TRUE_AFTER_TWO_STEPS_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
@@ -49,7 +55,7 @@ public class Task5Test {
     @DisplayName("Верно после 3 действия")
     void afterThirdStepTrue() {
         // given
-        long number = 11211230;
+        long number = TRUE_AFTER_THREE_STEPS_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
@@ -62,7 +68,7 @@ public class Task5Test {
     @DisplayName("Нечетное (верно)")
     void oddTrue() {
         // given
-        long number = 23615;
+        long number = TRUE_ODD_DIGITS_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
@@ -76,7 +82,7 @@ public class Task5Test {
     @DisplayName("Нечетное (неверно)")
     void oddFalse() {
         // given
-        long number = 223;
+        long number = FALSE_ODD_DIGITS_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
@@ -89,7 +95,7 @@ public class Task5Test {
     @DisplayName("Четное (неверно)")
     void evenFalse() {
         // given
-        long number = 14575903;
+        long number = FALSE_EVEN_DIGITS_NUMBER;
 
         // when
         boolean result = Task5.isPalindromeDescendant(number);
