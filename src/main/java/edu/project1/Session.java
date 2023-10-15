@@ -1,12 +1,10 @@
 package edu.project1;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
+import org.jetbrains.annotations.NotNull;
 
 public class Session {
-    // private final Logger logger;
     private final Printer printer;
-    // private final Scanner scanner;
     private final Inputer inputer;
     private final @NotNull String answer;
     private final int maxAttempts;
@@ -88,13 +86,11 @@ public class Session {
         private void handleEnd() {
             if (attempts == maxAttempts) {
                 handleLose();
-                return;
-            }
-            if (state.equals(answer)) {
+            } else if (state.equals(answer)) {
                 handleWon();
-                return;
+            } else {
+                handleGiveUp();
             }
-            handleGiveUp();
         }
 
         private void handleLose() {

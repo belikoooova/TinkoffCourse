@@ -14,7 +14,7 @@ public class UnitTestGame implements Game {
     }
 
     public ArrayList<String> getReceivedString() {
-        UnitTestPrinter unitTestPrinter = (UnitTestPrinter)printer;
+        UnitTestPrinter unitTestPrinter = (UnitTestPrinter) printer;
         return unitTestPrinter.getPrintedLines();
     }
 
@@ -23,7 +23,8 @@ public class UnitTestGame implements Game {
         printer.outputLine(MessagesForUser.HELLO);
         while (!gameIsEnded) {
             Session session = new Session(printer, inputer, dictionary.randomWord(),
-                new GetterNextLetter(inputer, printer));
+                new GetterNextLetter(inputer, printer)
+            );
             session.run();
             handleEnd();
         }

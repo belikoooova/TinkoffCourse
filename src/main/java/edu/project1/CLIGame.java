@@ -2,9 +2,7 @@ package edu.project1;
 
 public class CLIGame implements Game {
     private final Dictionary dictionary = new BuiltInDictionary();
-    // private final org.apache.logging.log4j.Logger logger = LogManager.getLogger();
     private final Printer printer = new CLIPrinter();
-    //private final Scanner scanner = new Scanner(System.in);
     private final Inputer inputer = new CLIInputer();
     private boolean gameIsEnded = false;
 
@@ -13,7 +11,8 @@ public class CLIGame implements Game {
         printer.outputLine(MessagesForUser.HELLO);
         while (!gameIsEnded) {
             Session session = new Session(printer, inputer, dictionary.randomWord(),
-                new GetterNextLetter(inputer, printer));
+                new GetterNextLetter(inputer, printer)
+            );
             session.run();
             handleEnd();
         }

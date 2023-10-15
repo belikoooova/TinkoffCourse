@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class UnitTestPrinter implements Printer {
     private final ArrayList<String> printedLines = new ArrayList<>();
+
     @Override
     public void outputLine(Object object) {
         printedLines.add(object.toString());

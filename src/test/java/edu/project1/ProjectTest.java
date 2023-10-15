@@ -16,7 +16,7 @@ public class ProjectTest {
     @DisplayName("Test with incorrect word")
     void runWithIncorrectString() {
         // given
-        String[] input = new String[]{"yes"};
+        String[] input = new String[] {"yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_INCORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
         expectedStrings.add(MessagesForUser.HELLO.toString());
@@ -39,7 +39,7 @@ public class ProjectTest {
     @DisplayName("Win with correct string")
     void winWithCorrectString() {
         // given
-        String[] input = new String[]{"H", "no", "P", "no", "p", "no", "L", "no", "o", "no", "e", "yes"};
+        String[] input = new String[] {"H", "no", "P", "no", "p", "no", "L", "no", "o", "no", "e", "yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_CORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
         expectedStrings.add(MessagesForUser.HELLO.toString());
@@ -86,7 +86,7 @@ public class ProjectTest {
     @DisplayName("Lose with correct word")
     void loseWithCorrectString() {
         // given
-        String[] input = new String[]{"H", "no", "P", "no", "q", "no", "w", "no", "r", "no", "f", "yes"};
+        String[] input = new String[] {"H", "no", "P", "no", "q", "no", "w", "no", "r", "no", "f", "yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_CORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
         expectedStrings.add(MessagesForUser.HELLO.toString());
@@ -124,7 +124,7 @@ public class ProjectTest {
     @DisplayName("Exit with correct word")
     void exitWithCorrectString() {
         // given
-        String[] input = new String[]{"H", "yes", "yes"};
+        String[] input = new String[] {"H", "yes", "yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_CORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
         expectedStrings.add(MessagesForUser.HELLO.toString());
