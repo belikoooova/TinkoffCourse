@@ -1,12 +1,22 @@
 package edu.project1;
 
-public class CLIGame implements Game {
-    private final Dictionary dictionary = new BuiltInDictionary();
-    // private final org.apache.logging.log4j.Logger logger = LogManager.getLogger();
-    private final Printer printer = new CLIPrinter();
-    //private final Scanner scanner = new Scanner(System.in);
-    private final Inputer inputer = new CLIInputer();
+import java.util.ArrayList;
+
+public class UnitTestGame implements Game {
+    private final Dictionary dictionary;
+    private final Printer printer = new UnitTestPrinter();
+    private final Inputer inputer;
     private boolean gameIsEnded = false;
+
+    public UnitTestGame(int indexOfWord, String[] inputLines) {
+        this.dictionary = new UnitTestDictionary(indexOfWord);
+        this.inputer = new UnitTestInputer(inputLines);
+    }
+
+    public ArrayList<String> getReceivedString() {
+        UnitTestPrinter unitTestPrinter = (UnitTestPrinter)printer;
+        return unitTestPrinter.getPrintedLines();
+    }
 
     @Override
     public void run() {

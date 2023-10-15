@@ -5,7 +5,7 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-        Game game = new CLIGame(new BuiltInDictionary());
+        Game game = new CLIGame();
         game.run();
     }
 }

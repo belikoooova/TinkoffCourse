@@ -13,8 +13,8 @@ public enum MessagesForUser {
     CURRENT_WORD ("The word: %s"),
     MISTAKES_INFO ("Mistakes %d of %d"),
     HELLO ("Hello! This is hangman game"),
-    GIVE_UP ("Do you want to give up? Write yes if you want"),
-    EXIT ("Do you want to exit? Write yes if you want");
+    GIVE_UP ("Do you want to give up? Write yes if you want, else a new game will be started"),
+    EXIT ("Do you want to exit? Write yes if you want, else a new game will be started");
 
     private final String message;
 
