@@ -8,4 +8,14 @@ public class Square extends Rectangle {
     public Square(double side) {
         super(side, side);
     }
+
+    @Override
+    public Square setWidth(double width) {
+        return new Square(width, this.height);
+    }
+
+    @Override
+    public Square setHeight(double height) {
+        return new Square(this.width, height);
+    }
 }

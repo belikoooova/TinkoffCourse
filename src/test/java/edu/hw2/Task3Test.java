@@ -14,9 +14,9 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Task3Test {
-    public static final int BIG_MAX_ATTEMPTS_VALUE = 5;
-    public static final int SMALL_MAX_ATTEMPTS_VALUE = 1;
+class Task3Test {
+    private static final int BIG_MAX_ATTEMPTS_VALUE = 5;
+    private static final int SMALL_MAX_ATTEMPTS_VALUE = 1;
 
     @Test
     @DisplayName("Try get stable connection")

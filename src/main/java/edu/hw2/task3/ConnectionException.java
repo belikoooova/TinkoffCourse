@@ -1,17 +1,14 @@
 package edu.hw2.task3;
 
 public class ConnectionException extends RuntimeException {
-    private final Exception cause;
-
     public ConnectionException() {
-        cause = null;
     }
 
     public ConnectionException(Exception cause) {
-        this.cause = cause;
+        super(cause);
     }
 
-    public Exception getCause() {
-        return cause;
+    public ConnectionException(String message, Exception cause) {
+        super(message, cause);
     }
 }
