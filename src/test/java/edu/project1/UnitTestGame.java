@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class UnitTestGame implements Game {
     private final Dictionary dictionary;
     private final Printer printer = new UnitTestPrinter();
-    private final Inputer inputer;
+    private final Reader reader;
     private boolean gameIsEnded = false;
 
     public UnitTestGame(int indexOfWord, String[] inputLines) {
         this.dictionary = new UnitTestDictionary(indexOfWord);
-        this.inputer = new UnitTestInputer(inputLines);
+        this.reader = new UnitTestReader(inputLines);
     }
 
     public ArrayList<String> getReceivedString() {
@@ -20,10 +20,10 @@ public class UnitTestGame implements Game {
 
     @Override
     public void run() {
-        printer.outputLine(MessagesForUser.HELLO);
+        printer.printLine(HumanReadableMessage.HELLO);
         while (!gameIsEnded) {
-            Session session = new Session(printer, inputer, dictionary.randomWord(),
-                new GetterNextLetter(inputer, printer)
+            Session session = new Session(printer, reader, dictionary.generateRandomWord(),
+                new NextLetterProvider(reader, printer)
             );
             session.run();
             handleEnd();
@@ -31,8 +31,8 @@ public class UnitTestGame implements Game {
     }
 
     private void handleEnd() {
-        printer.outputLine(MessagesForUser.EXIT);
-        String input = inputer.getLine();
+        printer.printLine(HumanReadableMessage.EXIT);
+        String input = reader.getLine();
         if (input != null && input.equalsIgnoreCase("yes")) {
             gameIsEnded = true;
         }

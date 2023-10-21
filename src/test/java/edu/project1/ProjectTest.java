@@ -1,14 +1,11 @@
 package edu.project1;
 
-import edu.hw1.EvenArrayUtils;
-import edu.project1.*;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class ProjectTest {
+class ProjectTest {
     private static final int INDEX_OF_INCORRECT_WORD = 0;
     private static final int INDEX_OF_CORRECT_WORD = 1;
 
@@ -19,9 +16,9 @@ public class ProjectTest {
         String[] input = new String[] {"yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_INCORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
-        expectedStrings.add(MessagesForUser.HELLO.toString());
-        expectedStrings.add(MessagesForUser.INCORRECT_LENGTH_OF_WORD.toString());
-        expectedStrings.add(MessagesForUser.EXIT.toString());
+        expectedStrings.add(HumanReadableMessage.HELLO.toString());
+        expectedStrings.add(HumanReadableMessage.INCORRECT_LENGTH_OF_WORD.toString());
+        expectedStrings.add(HumanReadableMessage.EXIT.toString());
 
         // when
         game.run();
@@ -42,33 +39,33 @@ public class ProjectTest {
         String[] input = new String[] {"H", "no", "P", "no", "p", "no", "L", "no", "o", "no", "e", "yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_CORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
-        expectedStrings.add(MessagesForUser.HELLO.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.HELLO.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_GUESSED.toString());
         expectedStrings.add("The word: h****");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_NOT_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_NOT_GUESSED.toString());
         expectedStrings.add("Mistakes 1 of 5");
         expectedStrings.add("The word: h****");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_ALREADY_HAS_BEEN_WRITTEN.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_ALREADY_HAS_BEEN_WRITTEN.toString());
         expectedStrings.add("The word: h****");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_GUESSED.toString());
         expectedStrings.add("The word: h*ll*");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_GUESSED.toString());
         expectedStrings.add("The word: h*llo");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_GUESSED.toString());
         expectedStrings.add("The word: hello");
-        expectedStrings.add(MessagesForUser.WIN.toString());
-        expectedStrings.add(MessagesForUser.EXIT.toString());
+        expectedStrings.add(HumanReadableMessage.WIN.toString());
+        expectedStrings.add(HumanReadableMessage.EXIT.toString());
 
         // when
         game.run();
@@ -89,24 +86,24 @@ public class ProjectTest {
         String[] input = new String[] {"H", "no", "P", "no", "q", "no", "w", "no", "r", "no", "f", "yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_CORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
-        expectedStrings.add(MessagesForUser.HELLO.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.HELLO.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_GUESSED.toString());
         expectedStrings.add("The word: h****");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
         for (int i = 0; i < 4; ++i) {
-            expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-            expectedStrings.add(MessagesForUser.LETTER_IS_NOT_GUESSED.toString());
+            expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+            expectedStrings.add(HumanReadableMessage.LETTER_IS_NOT_GUESSED.toString());
             expectedStrings.add(String.format("Mistakes %d of 5", i + 1));
             expectedStrings.add("The word: h****");
-            expectedStrings.add(MessagesForUser.GIVE_UP.toString());
+            expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
         }
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_NOT_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_NOT_GUESSED.toString());
         expectedStrings.add("Mistakes 5 of 5");
         expectedStrings.add("The word: h****");
-        expectedStrings.add(MessagesForUser.LOSE.toString());
-        expectedStrings.add(MessagesForUser.EXIT.toString());
+        expectedStrings.add(HumanReadableMessage.LOSE.toString());
+        expectedStrings.add(HumanReadableMessage.EXIT.toString());
 
         // when
         game.run();
@@ -127,12 +124,12 @@ public class ProjectTest {
         String[] input = new String[] {"H", "yes", "yes"};
         UnitTestGame game = new UnitTestGame(INDEX_OF_CORRECT_WORD, input);
         ArrayList<String> expectedStrings = new ArrayList<>();
-        expectedStrings.add(MessagesForUser.HELLO.toString());
-        expectedStrings.add(MessagesForUser.GUESS_LETTER.toString());
-        expectedStrings.add(MessagesForUser.LETTER_IS_GUESSED.toString());
+        expectedStrings.add(HumanReadableMessage.HELLO.toString());
+        expectedStrings.add(HumanReadableMessage.GUESS_LETTER.toString());
+        expectedStrings.add(HumanReadableMessage.LETTER_IS_GUESSED.toString());
         expectedStrings.add("The word: h****");
-        expectedStrings.add(MessagesForUser.GIVE_UP.toString());
-        expectedStrings.add(MessagesForUser.EXIT.toString());
+        expectedStrings.add(HumanReadableMessage.GIVE_UP.toString());
+        expectedStrings.add(HumanReadableMessage.EXIT.toString());
 
         // when
         game.run();

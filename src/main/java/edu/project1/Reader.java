@@ -1,5 +1,5 @@
 package edu.project1;
 
-public interface Inputer {
+public interface Reader {
     String getLine();
 }

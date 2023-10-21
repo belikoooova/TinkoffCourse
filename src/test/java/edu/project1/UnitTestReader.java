@@ -1,10 +1,10 @@
 package edu.project1;
 
-public class UnitTestInputer implements Inputer {
+public class UnitTestReader implements Reader {
     private final String[] strings;
     private int index = 0;
 
-    public UnitTestInputer(String[] strings) {
+    public UnitTestReader(String[] strings) {
         this.strings = strings;
     }
 

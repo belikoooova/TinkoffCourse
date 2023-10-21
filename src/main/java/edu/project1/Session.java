@@ -5,110 +5,112 @@ import org.jetbrains.annotations.NotNull;
 
 public class Session {
     private final Printer printer;
-    private final Inputer inputer;
+    private final Reader reader;
     private final @NotNull String answer;
     private final int maxAttempts;
-    private final GetterNextLetter getterNextLetter;
-    private final HandlerLetter handlerLetter;
+    private final NextLetterProvider nextLetterProvider;
+    private final LetterHandler letterHandler;
     private int attempts = 0;
-    private boolean gameIsFinished = false;
     private final HashSet<Character> userAnswers = new HashSet<>();
-    private String state;
 
-    public Session(Printer printer, Inputer inputer, @NotNull String answer, GetterNextLetter getterNextLetter) {
+    public Session(Printer printer, Reader reader, @NotNull String answer, NextLetterProvider nextLetterProvider) {
         this.printer = printer;
-        this.inputer = inputer;
+        this.reader = reader;
         this.answer = answer.toLowerCase();
         this.maxAttempts = answer.length();
-        this.getterNextLetter = getterNextLetter;
-        changeState();
-        this.handlerLetter = new HandlerLetter();
-    }
-
-    private void changeState() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < answer.length(); ++i) {
-            char letter = answer.charAt(i);
-            stringBuilder.append(userAnswers.contains(letter) ? letter : '*');
-        }
-        state = stringBuilder.toString();
+        this.nextLetterProvider = nextLetterProvider;
+        this.letterHandler = new LetterHandler();
     }
 
     public void run() {
         if (answer.length() <= 1) {
-            printer.outputLine(MessagesForUser.INCORRECT_LENGTH_OF_WORD);
+            printer.printLine(HumanReadableMessage.INCORRECT_LENGTH_OF_WORD);
             return;
         }
-        while (!gameIsFinished) {
-            char letter = getterNextLetter.getLetter();
-            handlerLetter.handleLetter(letter);
+        do {
+            char letter = nextLetterProvider.getLetter();
+            letterHandler.handle(letter);
+        } while (shouldContinueGaming());
+    }
+
+    private boolean shouldContinueGaming() {
+        if (attempts == maxAttempts) {
+            lose();
+            return false;
+        } else if (letterHandler.getState().equals(answer)) {
+            win();
+            return false;
+        } else {
+            return giveUp();
         }
     }
 
-    private class HandlerLetter {
-        private void handleLetter(char letter) {
+    private void lose() {
+        printer.printLine(HumanReadableMessage.LOSE);
+    }
+
+    private void win() {
+        printer.printLine(HumanReadableMessage.WIN);
+    }
+
+    private boolean giveUp() {
+        printer.printLine(HumanReadableMessage.GIVE_UP);
+        String input = reader.getLine();
+        return input != null && !input.equalsIgnoreCase("yes");
+    }
+
+    private class LetterHandler {
+        private String state;
+
+        public String getState() {
+            return state;
+        }
+
+        LetterHandler() {
+            addGuessedLetters();
+        }
+
+        private void addGuessedLetters() {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < answer.length(); ++i) {
+                char letter = answer.charAt(i);
+                stringBuilder.append(userAnswers.contains(letter) ? letter : '*');
+            }
+            state = stringBuilder.toString();
+        }
+
+        private void handle(char letter) {
             if (userAnswers.contains(letter)) {
-                handleLetterAlreadyHasBeenWritten();
-                handleEnd();
+                letterAlreadyHasBeenWritten();
                 return;
             }
-            handleGuessingLetter(letter);
-            handleEnd();
+            guessingLetter(letter);
         }
 
-        private void handleLetterAlreadyHasBeenWritten() {
-            printer.outputLine(MessagesForUser.LETTER_ALREADY_HAS_BEEN_WRITTEN);
-            changeState();
-            printer.outputLine(String.format(MessagesForUser.CURRENT_WORD.toString(), state));
+        private void letterAlreadyHasBeenWritten() {
+            printer.printLine(HumanReadableMessage.LETTER_ALREADY_HAS_BEEN_WRITTEN);
+            printer.printLine(String.format(HumanReadableMessage.CURRENT_WORD.toString(), state));
         }
 
-        private void handleGuessingLetter(char letter) {
+        private void guessingLetter(char letter) {
             userAnswers.add(letter);
             if (answer.contains(Character.toString(letter))) {
-                handleGuessedLetter();
+                letterWasGuessed();
             } else {
-                handleNotGuessedLetter();
+                letterWasNotGuessed();
             }
-            printer.outputLine(String.format(MessagesForUser.CURRENT_WORD.toString(), state));
+            printer.printLine(String.format(HumanReadableMessage.CURRENT_WORD.toString(), state));
         }
 
-        private void handleGuessedLetter() {
-            printer.outputLine(MessagesForUser.LETTER_IS_GUESSED);
-            changeState();
+        private void letterWasGuessed() {
+            printer.printLine(HumanReadableMessage.LETTER_IS_GUESSED);
+            addGuessedLetters();
         }
 
-        private void handleNotGuessedLetter() {
+        private void letterWasNotGuessed() {
             ++attempts;
-            printer.outputLine(MessagesForUser.LETTER_IS_NOT_GUESSED);
-            printer.outputLine(String.format(MessagesForUser.MISTAKES_INFO.toString(), attempts, maxAttempts));
-        }
-
-        private void handleEnd() {
-            if (attempts == maxAttempts) {
-                handleLose();
-            } else if (state.equals(answer)) {
-                handleWon();
-            } else {
-                handleGiveUp();
-            }
-        }
-
-        private void handleLose() {
-            printer.outputLine(MessagesForUser.LOSE);
-            gameIsFinished = true;
-        }
-
-        private void handleWon() {
-            printer.outputLine(MessagesForUser.WIN);
-            gameIsFinished = true;
-        }
-
-        private void handleGiveUp() {
-            printer.outputLine(MessagesForUser.GIVE_UP);
-            String input = inputer.getLine();
-            if (input != null && input.equalsIgnoreCase("yes")) {
-                gameIsFinished = true;
-            }
+            printer.printLine(HumanReadableMessage.LETTER_IS_NOT_GUESSED);
+            printer.printLine(String.format(HumanReadableMessage.MISTAKES_INFO.toString(), attempts, maxAttempts));
         }
     }
 }

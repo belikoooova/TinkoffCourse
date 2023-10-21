@@ -1,7 +1,5 @@
 package edu.project1;
 
-import org.jetbrains.annotations.NotNull;
-
 public class UnitTestDictionary implements Dictionary {
     private final String[] dictionary = new String[] {"i", "hello"};
     private final int indexOfWord;
@@ -11,7 +9,7 @@ public class UnitTestDictionary implements Dictionary {
     }
 
     @Override
-    public @NotNull String randomWord() {
+    public String generateRandomWord() {
         return dictionary[indexOfWord];
     }
 }

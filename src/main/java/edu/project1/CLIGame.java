@@ -1,28 +1,25 @@
 package edu.project1;
 
 public class CLIGame implements Game {
-    private final Dictionary dictionary = new BuiltInDictionary();
+    private final Dictionary dictionary = new BuiltInMemoryDictionary();
     private final Printer printer = new CLIPrinter();
-    private final Inputer inputer = new CLIInputer();
-    private boolean gameIsEnded = false;
+    private final Reader reader = new CLIReader();
 
     @Override
     public void run() {
-        printer.outputLine(MessagesForUser.HELLO);
-        while (!gameIsEnded) {
-            Session session = new Session(printer, inputer, dictionary.randomWord(),
-                new GetterNextLetter(inputer, printer)
+        printer.printLine(HumanReadableMessage.HELLO);
+        do {
+            Session session = new Session(printer, reader, dictionary.generateRandomWord(),
+                new NextLetterProvider(reader, printer)
             );
             session.run();
-            handleEnd();
         }
+        while (shouldContinueGaming());
     }
 
-    private void handleEnd() {
-        printer.outputLine(MessagesForUser.EXIT);
-        String input = inputer.getLine();
-        if (input != null && input.equalsIgnoreCase("yes")) {
-            gameIsEnded = true;
-        }
+    private boolean shouldContinueGaming() {
+        printer.printLine(HumanReadableMessage.EXIT);
+        String input = reader.getLine();
+        return input != null && !input.equalsIgnoreCase("yes");
     }
 }

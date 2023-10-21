@@ -1,11 +1,7 @@
 package edu.project1;
 
 public interface Printer {
-    void outputLine(Object object);
+    void printLine(HumanReadableMessage message);
 
-    void outputLine(String line);
-
-    void outputLine(String line, int firstParameter, int secondParameter);
-
-    void outputLine(String line, String firstParameter);
+    void printLine(String line);
 }

@@ -1,6 +1,6 @@
 package edu.project1;
 
-public enum MessagesForUser {
+public enum HumanReadableMessage {
     INCORRECT_LENGTH_OF_WORD("Sorry, length of answer word is incorrect. The game cannot be started"),
     NOT_CHAR_INPUT("You must input just one symbol"),
     NOT_LETTER_INPUT("You must input the letter"),
@@ -18,7 +18,7 @@ public enum MessagesForUser {
 
     private final String message;
 
-    MessagesForUser(String message) {
+    HumanReadableMessage(String message) {
         this.message = message;
     }
 
