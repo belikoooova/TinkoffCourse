@@ -23,10 +23,6 @@ public class Session {
     }
 
     public void run() {
-        if (answer.length() <= 1) {
-            printer.printLine(HumanReadableMessage.INCORRECT_LENGTH_OF_WORD);
-            return;
-        }
         do {
             char letter = nextLetterProvider.getLetter();
             letterHandler.handle(letter);

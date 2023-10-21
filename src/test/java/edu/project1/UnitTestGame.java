@@ -6,7 +6,6 @@ public class UnitTestGame implements Game {
     private final Dictionary dictionary;
     private final Printer printer = new UnitTestPrinter();
     private final Reader reader;
-    private boolean gameIsEnded = false;
 
     public UnitTestGame(int indexOfWord, String[] inputLines) {
         this.dictionary = new UnitTestDictionary(indexOfWord);
@@ -21,20 +20,33 @@ public class UnitTestGame implements Game {
     @Override
     public void run() {
         printer.printLine(HumanReadableMessage.HELLO);
-        while (!gameIsEnded) {
-            Session session = new Session(printer, reader, dictionary.generateRandomWord(),
+        String answer = dictionary.generateRandomWord();
+        ;
+        if (shouldNotStartGaming(answer)) {
+            if (!shouldContinueGaming()) {
+                return;
+            }
+        }
+        do {
+            Session session = new Session(printer, reader, answer,
                 new NextLetterProvider(reader, printer)
             );
             session.run();
-            handleEnd();
         }
+        while (shouldContinueGaming());
     }
 
-    private void handleEnd() {
+    private boolean shouldNotStartGaming(String answer) {
+        if (answer.length() <= 1) {
+            printer.printLine(HumanReadableMessage.INCORRECT_LENGTH_OF_WORD);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean shouldContinueGaming() {
         printer.printLine(HumanReadableMessage.EXIT);
         String input = reader.getLine();
-        if (input != null && input.equalsIgnoreCase("yes")) {
-            gameIsEnded = true;
-        }
+        return input != null && !input.equalsIgnoreCase("yes");
     }
 }
