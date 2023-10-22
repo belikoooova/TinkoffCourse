@@ -9,8 +9,7 @@ public class FrequencyCounter {
         for (var element : list) {
             if (dictionary.containsKey(element)) {
                 dictionary.put(element, dictionary.get(element) + 1);
-            }
-            else {
+            } else {
                 dictionary.put(element, 1);
             }
         }
