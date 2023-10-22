@@ -2,9 +2,10 @@ package edu.hw3.task3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class FrequencyCounter {
-    public <T> HashMap<T, Integer> freqDict(ArrayList<T> list) {
+    public <T> Map<T, Integer> freqDict(ArrayList<T> list) {
         HashMap<T, Integer> dictionary = new HashMap<>();
         for (var element : list) {
             if (dictionary.containsKey(element)) {
