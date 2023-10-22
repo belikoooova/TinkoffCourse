@@ -14,9 +14,10 @@ public class Task1Test {
 
         // when
         AtbashScrambler atbashScrambler = new AtbashScrambler();
+        String result = atbashScrambler.atbash(stringToEncrypt);
 
         // then
-        assertThat(atbashScrambler.atbash(stringToEncrypt)).isEqualTo("Svool dliow!");
+        assertThat(result).isEqualTo("Svool dliow!");
     }
 
     @Test
@@ -28,9 +29,10 @@ public class Task1Test {
 
         // when
         AtbashScrambler atbashScrambler = new AtbashScrambler();
+        String result = atbashScrambler.atbash(stringToEncrypt);
 
         // then
-        assertThat(atbashScrambler.atbash(stringToEncrypt)).isEqualTo(
+        assertThat(result).isEqualTo(
             "Zmb ullo xzm dirgv xlwv gszg z xlnkfgvi xzm fmwvihgzmw. Tllw kiltiznnvih dirgv xlwv gszg sfnzmh xzm fmwvihgzmw. ― Nzigrm Uldovi");
     }
 }
