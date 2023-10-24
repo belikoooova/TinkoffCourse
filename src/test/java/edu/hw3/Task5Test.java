@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Task5Test {
+class Task5Test {
 
     @Test
     @DisplayName("ASC test")
@@ -34,8 +34,8 @@ public class Task5Test {
 
         // then
         assertThat(result[0].getLastName()).isEqualTo("Gauss");
-        assertThat(result[1].getLastName()).isEqualTo("Erdos");
-        assertThat(result[2].getLastName()).isEqualTo("Euler");
+        assertThat(result[1].getLastName()).isEqualTo("Euler");
+        assertThat(result[2].getLastName()).isEqualTo("Erdos");
     }
 
     @Test
@@ -68,12 +68,14 @@ public class Task5Test {
     @DisplayName("Only name")
     void onlyNameTest() {
         // given
-        String[] names = new String[] {"Paul", "Leonhard", "Carl Gauss"};
+        String[] names = new String[] {"Carl Gauss", "Leonhard", "Paul"};
 
         // when
         var result = Contact.parseContacts(names, "DESC");
 
         // then
-        assertThat(result).isEmpty();
+        assertThat(result[0].getFirstName()).isEqualTo("Paul");
+        assertThat(result[1].getFirstName()).isEqualTo("Leonhard");
+        assertThat(result[2].getFirstName()).isEqualTo("Carl");
     }
 }
