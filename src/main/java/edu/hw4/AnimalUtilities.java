@@ -11,12 +11,12 @@ public class AnimalUtilities {
 
     // Task 1.
     public static List<Animal> sortByHeightAsc(List<Animal> animals) {
-        return animals.stream().sorted(new HeightComparator()).toList();
+        return animals.stream().sorted(Comparator.comparingInt(Animal::height)).toList();
     }
 
     // Task 2.
     public static List<Animal> sortByWeightDescAndTakeSeveralElements(List<Animal> animals, int count) {
-        return animals.stream().sorted(new WeightComparator()).limit(count).toList();
+        return animals.stream().sorted(Comparator.comparingInt(Animal::weight).reversed()).limit(count).toList();
     }
 
     // Task 3.
@@ -27,19 +27,14 @@ public class AnimalUtilities {
         ));
     }
 
-    // Task 1.
-    static class HeightComparator implements Comparator<Animal> {
-        @Override
-        public int compare(Animal o1, Animal o2) {
-            return o1.height() - o2.height();
-        }
+    // Task 4.
+    public static Animal getAnimalWithMaxNameLength(List<Animal> animals) {
+        return animals.stream().max((Comparator.comparingInt(o -> o.name().length()))).get();
     }
 
-    // Task 2.
-    static class WeightComparator implements Comparator<Animal> {
-        @Override
-        public int compare(Animal o1, Animal o2) {
-            return o2.weight() - o1.weight();
-        }
+    // Task 5.
+    public static Animal.Sex getMostPopularSex(List<Animal> animals) {
+        var map = animals.stream().collect(Collectors.groupingBy(Animal::sex, Collectors.counting()));
+        return (map.getOrDefault(Animal.Sex.M, 0L) > map.getOrDefault(Animal.Sex.F, 0L)) ? Animal.Sex.M : Animal.Sex.F;
     }
 }
