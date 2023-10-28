@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AnimalUtilities {
@@ -125,5 +126,16 @@ public class AnimalUtilities {
     public static Animal getTheHeaviestFish(List<List<Animal>> animalsLists) {
         return animalsLists.stream().flatMap(List::stream).filter(a -> a.type().equals(Animal.Type.FISH))
             .max(Comparator.comparingInt(Animal::weight)).get();
+    }
+
+    // Task 19.
+    public static Map<String, Set<ValidationError>> getErrorMap(List<Animal> animals) {
+        return animals.stream().collect(Collectors.toMap(Animal::name, ValidationError::getErrorsSet));
+    }
+
+    // Task 20.
+    public static Map<String, String> getErrorStringMap(List<Animal> animals) {
+        return animals.stream()
+            .collect(Collectors.toMap(Animal::name, a -> ValidationError.getErrorsSet(a).toString()));
     }
 }
