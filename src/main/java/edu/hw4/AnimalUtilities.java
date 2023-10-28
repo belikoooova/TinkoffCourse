@@ -118,6 +118,12 @@ public class AnimalUtilities {
         if (dogCount == 0 || spiderCount == 0) {
             return false;
         }
-        return (double)dogBites / dogCount < (double)spiderBites / spiderCount;
+        return (double) dogBites / dogCount < (double) spiderBites / spiderCount;
+    }
+
+    // Task 18.
+    public static Animal getTheHeaviestFish(List<List<Animal>> animalsLists) {
+        return animalsLists.stream().flatMap(List::stream).filter(a -> a.type().equals(Animal.Type.FISH))
+            .max(Comparator.comparingInt(Animal::weight)).get();
     }
 }
