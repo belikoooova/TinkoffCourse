@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class AnimalUtilities {
     private static final int BIG_HEIGHT = 100;
+    private static final int WORDS_AMOUNT = 2;
 
     private AnimalUtilities() {
     }
@@ -72,5 +73,15 @@ public class AnimalUtilities {
     // Task 11.
     public static List<Animal> getBitingAndBigAnimals(List<Animal> animals) {
         return animals.stream().filter(a -> a.bites() && a.height() > BIG_HEIGHT).toList();
+    }
+
+    // Task 12.
+    public static Integer getAmountOfAnimalsWithWeightGreaterThanHeight(List<Animal> animals) {
+        return (int)animals.stream().filter(a -> a.weight() > a.height()).count();
+    }
+
+    // Task 13.
+    public static Integer getAmountOfAnimalsWithNameThatContainsMoreThanTwoWords(List<Animal> animals) {
+        return (int)animals.stream().filter(a -> a.name().split(" ").length > WORDS_AMOUNT).count();
     }
 }
