@@ -84,4 +84,14 @@ public class AnimalUtilities {
     public static Integer getAmountOfAnimalsWithNameThatContainsMoreThanTwoWords(List<Animal> animals) {
         return (int)animals.stream().filter(a -> a.name().split(" ").length > WORDS_AMOUNT).count();
     }
+
+    // Task 14.
+    public static Boolean isThereDogWithHeightGreaterThanK(List<Animal> animals, int k) {
+        return animals.stream().anyMatch(a -> a.type().equals(Animal.Type.DOG) && a.height() > k);
+    }
+
+    // Task 15.
+    public static Integer findTotalWeightOfAnimalsWithHeightFromKToL(List<Animal> animals, int k, int l) {
+        return animals.stream().filter(a -> a.height() >= k && a.height() <= l).mapToInt(Animal::weight).sum();
+    }
 }
