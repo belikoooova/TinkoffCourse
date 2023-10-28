@@ -51,4 +51,14 @@ public class AnimalUtilities {
     public static Animal getKthOldAnimal(List<Animal> animals, int k) {
         return animals.stream().sorted((o1, o2) -> o2.age() - o1.age()).skip(k - 1).findFirst().orElseThrow();
     }
+
+    // Task 8.
+    public static Optional<Animal> getHeaviestAnimalWithHeightLessThanK(List<Animal> animals, int k) {
+        return animals.stream().filter(a -> a.height() < k).max(Comparator.comparingInt(Animal::weight));
+    }
+
+    // Task 9.
+    public static Integer getAmountOfPaws(List<Animal> animals) {
+        return animals.stream().mapToInt(Animal::paws).sum();
+    }
 }
