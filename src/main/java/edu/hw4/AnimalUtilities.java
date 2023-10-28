@@ -3,6 +3,7 @@ package edu.hw4;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AnimalUtilities {
@@ -36,5 +37,18 @@ public class AnimalUtilities {
     public static Animal.Sex getMostPopularSex(List<Animal> animals) {
         var map = animals.stream().collect(Collectors.groupingBy(Animal::sex, Collectors.counting()));
         return (map.getOrDefault(Animal.Sex.M, 0L) > map.getOrDefault(Animal.Sex.F, 0L)) ? Animal.Sex.M : Animal.Sex.F;
+    }
+
+    // Task 6.
+    public static Map<Animal.Type, Animal> getHeaviestAnimals(List<Animal> animals) {
+        return animals.stream().collect(Collectors.groupingBy(
+            Animal::type,
+            Collectors.collectingAndThen(Collectors.maxBy((Comparator.comparingInt(Animal::weight))), Optional::get)
+        ));
+    }
+
+    // Task 7.
+    public static Animal getKthOldAnimal(List<Animal> animals, int k) {
+        return animals.stream().sorted((o1, o2) -> o2.age() - o1.age()).skip(k - 1).findFirst().orElseThrow();
     }
 }
