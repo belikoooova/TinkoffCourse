@@ -77,12 +77,12 @@ public class AnimalUtilities {
 
     // Task 12.
     public static Integer getAmountOfAnimalsWithWeightGreaterThanHeight(List<Animal> animals) {
-        return (int)animals.stream().filter(a -> a.weight() > a.height()).count();
+        return (int) animals.stream().filter(a -> a.weight() > a.height()).count();
     }
 
     // Task 13.
     public static Integer getAmountOfAnimalsWithNameThatContainsMoreThanTwoWords(List<Animal> animals) {
-        return (int)animals.stream().filter(a -> a.name().split(" ").length > WORDS_AMOUNT).count();
+        return (int) animals.stream().filter(a -> a.name().split(" ").length > WORDS_AMOUNT).count();
     }
 
     // Task 14.
@@ -93,5 +93,31 @@ public class AnimalUtilities {
     // Task 15.
     public static Integer findTotalWeightOfAnimalsWithHeightFromKToL(List<Animal> animals, int k, int l) {
         return animals.stream().filter(a -> a.height() >= k && a.height() <= l).mapToInt(Animal::weight).sum();
+    }
+
+    // Task 16.
+    public static List<Animal> specialSort(List<Animal> animals) {
+        return animals.stream()
+            .sorted(Comparator.comparing(Animal::type).thenComparing(Animal::sex).thenComparing(Animal::name)).toList();
+    }
+
+    // Task 17.
+    public static Boolean areSpidersBiteMoreOftenThanDogs(List<Animal> animals) {
+        long dogBites = animals.stream()
+            .filter(animal -> animal.type() == Animal.Type.DOG && animal.bites())
+            .count();
+        long dogCount = animals.stream()
+            .filter(animal -> animal.type() == Animal.Type.DOG)
+            .count();
+        long spiderBites = animals.stream()
+            .filter(animal -> animal.type() == Animal.Type.SPIDER && animal.bites())
+            .count();
+        long spiderCount = animals.stream()
+            .filter(animal -> animal.type() == Animal.Type.SPIDER)
+            .count();
+        if (dogCount == 0 || spiderCount == 0) {
+            return false;
+        }
+        return (double)dogBites / dogCount < (double)spiderBites / spiderCount;
     }
 }
