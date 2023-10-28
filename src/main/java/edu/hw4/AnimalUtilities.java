@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AnimalUtilities {
+    private static final int BIG_HEIGHT = 100;
+
     private AnimalUtilities() {
     }
 
@@ -60,5 +62,15 @@ public class AnimalUtilities {
     // Task 9.
     public static Integer getAmountOfPaws(List<Animal> animals) {
         return animals.stream().mapToInt(Animal::paws).sum();
+    }
+
+    // Task 10.
+    public static List<Animal> getAnimalsWithAgeNotEqualPaws(List<Animal> animals) {
+        return animals.stream().filter(a -> a.paws() != a.age()).toList();
+    }
+
+    // Task 11.
+    public static List<Animal> getBitingAndBigAnimals(List<Animal> animals) {
+        return animals.stream().filter(a -> a.bites() && a.height() > BIG_HEIGHT).toList();
     }
 }
