@@ -14,7 +14,7 @@ public class Task1Test {
 
         // when
         AtbashScrambler atbashScrambler = new AtbashScrambler();
-        String result = atbashScrambler.atbash(stringToEncrypt);
+        String result = atbashScrambler.encrypt(stringToEncrypt);
 
         // then
         assertThat(result).isEqualTo("Svool dliow!");
@@ -29,7 +29,7 @@ public class Task1Test {
 
         // when
         AtbashScrambler atbashScrambler = new AtbashScrambler();
-        String result = atbashScrambler.atbash(stringToEncrypt);
+        String result = atbashScrambler.encrypt(stringToEncrypt);
 
         // then
         assertThat(result).isEqualTo(

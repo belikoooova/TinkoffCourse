@@ -13,7 +13,7 @@ public class AtbashScrambler {
         }
     }
 
-    public String atbash(String stringToEncrypt) {
+    public String encrypt(String stringToEncrypt) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < stringToEncrypt.length(); ++i) {
             if (atbashDictionary.containsKey(stringToEncrypt.charAt(i))) {

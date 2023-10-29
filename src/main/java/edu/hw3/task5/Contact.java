@@ -1,12 +1,13 @@
 package edu.hw3.task5;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
-public class Contact {
-    private final String firstName;
+public record Contact(String firstName, String lastName) {
 
-    private final String lastName;
+    public Contact(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -17,25 +18,7 @@ public class Contact {
     }
 
     public Contact(String name) {
-        String[] splittedName = name.split(" ");
-        firstName = splittedName[0];
-        lastName = splittedName.length > 1 ? splittedName[1] : null;
-    }
-
-    public static Contact[] parseContacts(String[] names, String sortingParameter) {
-        if (names == null) {
-            return new Contact[0];
-        }
-        Contact[] sortedContacts = new Contact[names.length];
-        for (int i = 0; i < names.length; ++i) {
-            sortedContacts[i] = new Contact(names[i]);
-        }
-        if (sortingParameter.equals("DESC")) {
-            Arrays.sort(sortedContacts, new ContactComparator().reversed());
-        } else {
-            Arrays.sort(sortedContacts, new ContactComparator());
-        }
-        return sortedContacts;
+        this(name.split(" ")[0], (name.split(" ").length > 1 ? name.split(" ")[1] : null));
     }
 
     static class ContactComparator implements Comparator<Contact> {

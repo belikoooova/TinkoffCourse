@@ -21,6 +21,9 @@ public class Task2 {
                 prevInd = i;
             }
         }
+        if (countOfBrackets != 0) {
+            throw new IllegalArgumentException("Incorrect bracket sequence");
+        }
         return clusterizedStrings;
     }
 }

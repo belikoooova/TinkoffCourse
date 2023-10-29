@@ -8,8 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class Task2Test {
+class Task2Test {
     @Test
     @DisplayName("1st sample test")
     void firstSampleTest() {
@@ -60,5 +61,15 @@ public class Task2Test {
 
         // then
         assertThat(result).isEqualTo(new ArrayList<String>(Arrays.asList("((())())", "(()(()()))")));
+    }
+
+    @Test
+    @DisplayName("Incorrect argument test")
+    void incorrectArgumentTest() {
+        // given
+        String stringToClusterize = "((())())(()(()()";
+
+        // when and then
+        assertThrows(IllegalArgumentException.class, () -> Task2.clusterize(stringToClusterize));
     }
 }
