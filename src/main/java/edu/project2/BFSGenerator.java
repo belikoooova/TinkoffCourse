@@ -3,11 +3,11 @@ package edu.project2;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
-import static edu.project2.MazeUtilities.initialFill;
 import static edu.project2.MazeUtilities.getNeighboursCoords;
+import static edu.project2.MazeUtilities.initialFill;
 
 public class BFSGenerator implements Generator {
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     @Override
     public Maze generate(int height, int width) {
@@ -32,7 +32,7 @@ public class BFSGenerator implements Generator {
                 getNeighboursCoords(current.row(), current.col(), maze.getHeight(), maze.getWidth(), isVisited);
             if (!neighbours.isEmpty()) {
                 queue.add(current);
-                var neighbour = neighbours.get(random.nextInt(neighbours.size()));
+                var neighbour = neighbours.get(RANDOM.nextInt(neighbours.size()));
                 maze.getGrid()[(current.row() + neighbour.row()) / 2][(current.col() + neighbour.col()) / 2].setType(
                     Cell.Type.PASSAGE);
                 isVisited[neighbour.row()][neighbour.col()] = true;

@@ -10,14 +10,14 @@ import static edu.project2.MazeUtilities.getNeighboursCoords;
 import static edu.project2.MazeUtilities.isWrongCoords;
 
 public class BFSSolver implements Solver {
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         Coordinate newStart = new Coordinate(start.row() * 2 + 1, start.col() * 2 + 1);
         Coordinate newEnd = new Coordinate(end.row() * 2 + 1, end.col() * 2 + 1);
-        if (isWrongCoords(newStart, maze.getHeight(), maze.getWidth()) ||
-            isWrongCoords(newEnd, maze.getHeight(), maze.getWidth())) {
+        if (isWrongCoords(newStart, maze.getHeight(), maze.getWidth())
+            || isWrongCoords(newEnd, maze.getHeight(), maze.getWidth())) {
             throw new IllegalArgumentException();
         }
         boolean[][] isVisited = new boolean[maze.getHeight()][maze.getWidth()];
@@ -49,7 +49,7 @@ public class BFSSolver implements Solver {
 
             if (!neighbours.isEmpty()) {
                 queue.add(current);
-                int index = random.nextInt(neighbours.size());
+                int index = RANDOM.nextInt(neighbours.size());
                 var neighbour = neighbours.get(index);
                 isVisited[neighbour.row()][neighbour.col()] = true;
                 queue.add(neighbour);

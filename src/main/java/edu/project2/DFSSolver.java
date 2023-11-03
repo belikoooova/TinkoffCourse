@@ -11,7 +11,8 @@ public class DFSSolver implements Solver {
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         Coordinate newStart = new Coordinate(start.row() * 2 + 1, start.col() * 2 + 1);
         Coordinate newEnd = new Coordinate(end.row() * 2 + 1, end.col() * 2 + 1);
-        if (isWrongCoords(newStart, maze.getHeight(), maze.getWidth()) || isWrongCoords(newEnd, maze.getHeight(), maze.getWidth())) {
+        if (isWrongCoords(newStart, maze.getHeight(), maze.getWidth())
+            || isWrongCoords(newEnd, maze.getHeight(), maze.getWidth())) {
             throw new IllegalArgumentException();
         }
         boolean[][] isVisited = new boolean[maze.getHeight()][maze.getWidth()];
@@ -28,10 +29,12 @@ public class DFSSolver implements Solver {
         if (start.col() == end.col() && start.row() == end.row()) {
             return true;
         }
-        var neighboursCoords = getNeighboursCoords(start.row(), start.col(), maze.getHeight(), maze.getWidth(), isVisited);
+        var neighboursCoords =
+            getNeighboursCoords(start.row(), start.col(), maze.getHeight(), maze.getWidth(), isVisited);
         for (var neighbour : neighboursCoords) {
             if (!isVisited[neighbour.row()][neighbour.col()]) {
-                Coordinate betweenCoordinate = new Coordinate((start.row() + neighbour.row()) / 2, (start.col() + neighbour.col()) / 2);
+                Coordinate betweenCoordinate =
+                    new Coordinate((start.row() + neighbour.row()) / 2, (start.col() + neighbour.col()) / 2);
                 if (maze.getGrid()[betweenCoordinate.row()][betweenCoordinate.col()].getType() == Cell.Type.WALL) {
                     continue;
                 }

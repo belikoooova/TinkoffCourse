@@ -35,8 +35,8 @@ public class MazeUtilities {
         for (int i = 0; i < X_SHIFTS.length; ++i) {
             int newCellHeight = cellHeight + X_SHIFTS[i];
             int newCellWidth = cellWidth + Y_SHIFTS[i];
-            if (newCellHeight >= 0 && newCellHeight < mazeHeight && newCellWidth >= 0 && newCellWidth < mazeWidth &&
-                !isVisited[newCellHeight][newCellWidth]) {
+            if (newCellHeight >= 0 && newCellHeight < mazeHeight && newCellWidth >= 0 && newCellWidth < mazeWidth
+                && !isVisited[newCellHeight][newCellWidth]) {
                 newCellsCoords.add(new Coordinate(newCellHeight, newCellWidth));
             }
         }
