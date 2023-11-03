@@ -22,7 +22,8 @@ public class DFSGenerator implements Generator {
         Collections.shuffle(neighboursCoords);
         for (var neighbour : neighboursCoords) {
             if (!isVisited[neighbour.row()][neighbour.col()]) {
-                maze.getGrid()[(cellHeight + neighbour.row()) / 2][(cellWidth + neighbour.col()) / 2].setType(Cell.Type.PASSAGE);
+                maze.getGrid()[(cellHeight + neighbour.row()) / 2][(cellWidth + neighbour.col()) /
+                    2].setType(Cell.Type.PASSAGE);
                 dfs(neighbour.row(), neighbour.col(), maze, isVisited);
             }
         }

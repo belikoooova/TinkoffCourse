@@ -19,5 +19,5 @@ public class Cell {
         this.type = type;
     }
 
-    public enum Type { WALL, PASSAGE }
+    public enum Type {WALL, PASSAGE}
 }

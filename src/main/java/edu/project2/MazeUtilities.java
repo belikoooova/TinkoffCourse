@@ -7,7 +7,8 @@ public class MazeUtilities {
     private static final int[] X_SHIFTS = new int[] {2, 0, -2, 0};
     private static final int[] Y_SHIFTS = new int[] {0, 2, 0, -2};
 
-    private MazeUtilities() {}
+    private MazeUtilities() {
+    }
 
     public static Maze initialFill(int height, int width) {
         Maze maze = new Maze(height * 2 + 1, width * 2 + 1);

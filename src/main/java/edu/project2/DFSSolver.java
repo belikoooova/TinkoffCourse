@@ -1,5 +1,6 @@
 package edu.project2;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.List;
 import static edu.project2.MazeUtilities.getNeighboursCoords;
@@ -15,7 +16,9 @@ public class DFSSolver implements Solver {
         }
         boolean[][] isVisited = new boolean[maze.getHeight()][maze.getWidth()];
         List<Coordinate> path = new ArrayList<>();
-        dfs(newStart, newEnd, maze, isVisited, path);
+        if (!dfs(newStart, newEnd, maze, isVisited, path)) {
+            throw new FindException();
+        }
         path.add(newStart);
         return path;
     }

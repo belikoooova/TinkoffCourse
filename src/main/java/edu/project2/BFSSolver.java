@@ -11,11 +11,13 @@ import static edu.project2.MazeUtilities.isWrongCoords;
 
 public class BFSSolver implements Solver {
     private static final Random random = new Random();
+
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         Coordinate newStart = new Coordinate(start.row() * 2 + 1, start.col() * 2 + 1);
         Coordinate newEnd = new Coordinate(end.row() * 2 + 1, end.col() * 2 + 1);
-        if (isWrongCoords(newStart, maze.getHeight(), maze.getWidth()) || isWrongCoords(newEnd, maze.getHeight(), maze.getWidth())) {
+        if (isWrongCoords(newStart, maze.getHeight(), maze.getWidth()) ||
+            isWrongCoords(newEnd, maze.getHeight(), maze.getWidth())) {
             throw new IllegalArgumentException();
         }
         boolean[][] isVisited = new boolean[maze.getHeight()][maze.getWidth()];
@@ -37,7 +39,8 @@ public class BFSSolver implements Solver {
             List<Coordinate> trueNeighbours = new ArrayList<>();
 
             for (var neighbour : neighbours) {
-                Coordinate betweenCoordinate = new Coordinate((current.row() + neighbour.row()) / 2, (current.col() + neighbour.col()) / 2);
+                Coordinate betweenCoordinate =
+                    new Coordinate((current.row() + neighbour.row()) / 2, (current.col() + neighbour.col()) / 2);
                 if (maze.getGrid()[betweenCoordinate.row()][betweenCoordinate.col()].getType() != Cell.Type.WALL) {
                     trueNeighbours.add(neighbour);
                 }

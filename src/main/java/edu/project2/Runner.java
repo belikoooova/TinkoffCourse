@@ -38,7 +38,11 @@ public class Runner {
                     int end_y = scanner.nextInt();
                     path = solver.solve(maze, new Coordinate(start_x, start_y), new Coordinate(end_x, end_y));
                 } catch (IllegalArgumentException ex) {
-                    System.out.printf((HumanReadableMessage.ERROR_COORDS.toString()) + "%n", (maze.getHeight() - 1) / 2, (maze.getWidth() - 1) / 2);
+                    System.out.printf(
+                        (HumanReadableMessage.ERROR_COORDS.toString()) + "%n",
+                        (maze.getHeight() - 1) / 2,
+                        (maze.getWidth() - 1) / 2
+                    );
                 }
             } while (path == null);
             System.out.print(renderer.render(maze, path));
