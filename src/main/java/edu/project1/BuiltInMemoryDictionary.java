@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BuiltInMemoryDictionary implements Dictionary {
     private static final String ALWAYS_CORRECT_WORD = "apple";
-    private static final String[] DICTIONARY = new String[] {"hello", "java", "dyslexia", "", "i", null};
+    private static final String[] DICTIONARY = new String[] {"dyslexia"};
     private final Random random = new Random();
 
     BuiltInMemoryDictionary() {

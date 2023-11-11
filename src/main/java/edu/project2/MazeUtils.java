@@ -3,14 +3,14 @@ package edu.project2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MazeUtilities {
+public class MazeUtils {
     private static final int[] X_SHIFTS = new int[] {2, 0, -2, 0};
     private static final int[] Y_SHIFTS = new int[] {0, 2, 0, -2};
 
-    private MazeUtilities() {
+    private MazeUtils() {
     }
 
-    public static Maze initialFill(int height, int width) {
+    public static Maze fillInitially(int height, int width) {
         Maze maze = new Maze(height * 2 + 1, width * 2 + 1);
         for (int i = 0; i < maze.getHeight(); ++i) {
             for (int j = 0; j < maze.getWidth(); ++j) {

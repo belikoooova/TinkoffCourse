@@ -1,5 +1,11 @@
 package edu.project2;
 
+import edu.project2.generators.BFSGenerator;
+import edu.project2.generators.DFSGenerator;
+import edu.project2.generators.Generator;
+import edu.project2.solvers.BFSSolver;
+import edu.project2.solvers.DFSSolver;
+import edu.project2.solvers.Solver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.lang.module.FindException;

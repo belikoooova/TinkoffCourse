@@ -10,8 +10,7 @@ public enum HumanReadableMessage {
     INPUT_START_X("Input start (row coordinate): "),
     INPUT_START_Y("Input start (col coordinate): "),
     INPUT_END_X("Input end (row coordinate): "),
-    INPUT_END_Y("Input end (col coordinate): "),
-    ERROR_COORDS("Coords must be: 0 <= row < %d, 0 <= col < %d");
+    INPUT_END_Y("Input end (col coordinate): ");
 
     private final String message;
 
