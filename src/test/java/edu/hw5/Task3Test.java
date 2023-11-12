@@ -8,7 +8,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Task3Test {
+class Task3Test {
     @Test
     void testParseCorrectDate() {
         // given
