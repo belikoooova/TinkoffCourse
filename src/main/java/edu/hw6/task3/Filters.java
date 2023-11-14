@@ -5,10 +5,13 @@ import java.nio.file.Files;
 import java.util.regex.Pattern;
 
 public class Filters {
-    public static final AbstractFilter regularFile = Files::isRegularFile;
-    public static final AbstractFilter readable = Files::isReadable;
-    public static final AbstractFilter writable = Files::isWritable;
-    public static final AbstractFilter executable = Files::isExecutable;
+    private Filters() {
+    }
+
+    public static AbstractFilter regularFile = Files::isRegularFile;
+    public static AbstractFilter readable = Files::isReadable;
+    public static AbstractFilter writable = Files::isWritable;
+    public static AbstractFilter executable = Files::isExecutable;
 
     public static AbstractFilter largerThan(long size) {
         return path -> Files.size(path) > size;
