@@ -56,7 +56,7 @@ public class FileOutputsComposer {
             bufferedOutputStream,
             StandardCharsets.UTF_8
         )) {
-            try (PrintWriter printWriter = new PrintWriter(outputStreamWriter)) {
+            try (PrintWriter printWriter = new PrintWriter(outputStreamWriter, true)) {
                 printWriter.println("Programming is learned by writing programs. ― Brian Kernighan");
             }
         }
