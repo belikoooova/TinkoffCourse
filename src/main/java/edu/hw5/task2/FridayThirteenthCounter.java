@@ -6,11 +6,11 @@ import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FridayThirteenthCounter {
-    private FridayThirteenthCounter() {
-    }
-
     private static final int LIMIT_OF_YEAR = 999999999;
     private static final int THIRTEEN = 13;
     private static final int MONTH_AMOUNT = 12;

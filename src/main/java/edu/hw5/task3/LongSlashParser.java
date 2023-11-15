@@ -20,14 +20,15 @@ public class LongSlashParser implements DateParser {
 
     @Override
     public LocalDate parseDate(String date) {
-        var nums = getNumbersOfDate(date);
-        return LocalDate.of(nums[YEAR_INDEX], nums[MONTH_INDEX], nums[DAY_INDEX]);
+        var dateComponents = getNumbersOfDate(date);
+        return LocalDate.of(dateComponents.year(), dateComponents.month(), dateComponents.day());
     }
 
-    private int[] getNumbersOfDate(String dateString) {
-        return Arrays
+    private DateComponents getNumbersOfDate(String dateString) {
+        var nums = Arrays
             .stream(dateString.split("/"))
             .mapToInt(Integer::parseInt)
             .toArray();
+        return new DateComponents(nums[YEAR_INDEX], nums[MONTH_INDEX], nums[DAY_INDEX]);
     }
 }

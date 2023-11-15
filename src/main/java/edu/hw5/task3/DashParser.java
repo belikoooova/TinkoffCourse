@@ -20,18 +20,15 @@ public class DashParser implements DateParser {
 
     @Override
     public LocalDate parseDate(String date) {
-        var nums = getNumbersOfDate(date);
-        return LocalDate.of(nums[YEAR_INDEX], nums[MONTH_INDEX], nums[DAY_INDEX]);
+        var dateComponents = getNumbersOfDate(date);
+        return LocalDate.of(dateComponents.year(), dateComponents.month(), dateComponents.day());
     }
 
-    private int[] getNumbersOfDate(String dateString) {
+    private DateComponents getNumbersOfDate(String dateString) {
         var nums = Arrays
             .stream(dateString.split("-"))
             .mapToInt(Integer::parseInt)
             .toArray();
-        int temp = nums[YEAR_INDEX];
-        nums[YEAR_INDEX] = nums[DAY_INDEX];
-        nums[DAY_INDEX] = temp;
-        return nums;
+        return new DateComponents(nums[DAY_INDEX], nums[MONTH_INDEX], nums[YEAR_INDEX]);
     }
 }

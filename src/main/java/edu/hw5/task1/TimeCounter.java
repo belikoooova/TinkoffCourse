@@ -5,40 +5,43 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeCounter {
     private static final int PAIR_SIZE = 2;
+    private static final int MINUTES_IN_HOUR = 60;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
 
-    private TimeCounter() {
-    }
-
-    public static Duration getAverageTime(List<String> timeIntervalStrings) {
-        List<LocalDateTime[]> startEndPairs = parseStrings(timeIntervalStrings);
+    public static String getAverageTime(List<String> timeIntervalStrings) {
+        List<TimeSegment> startEndPairs = parseStrings(timeIntervalStrings);
         List<Duration> intervals = getIntervals(startEndPairs);
         long averageMinutes = getAverageTimeInMinutes(intervals);
-        return Duration.ofMinutes(averageMinutes);
+        Duration duration = Duration.ofMinutes(averageMinutes);
+        return String.format("%dч %dм", duration.toHours(), duration.toMinutes() % MINUTES_IN_HOUR);
     }
 
-    private static List<LocalDateTime[]> parseStrings(List<String> timeIntervalStrings) {
-        List<LocalDateTime[]> startEndPairs = new ArrayList<>();
+    private static List<TimeSegment> parseStrings(List<String> timeIntervalStrings) {
+        List<TimeSegment> startEndPairs = new ArrayList<>();
         for (var timeString : timeIntervalStrings) {
             String[] splittedString = timeString.split(" - ");
             if (splittedString.length != PAIR_SIZE) {
                 throw new IllegalArgumentException("Interval must contain 2 dates: start and end");
             }
-            LocalDateTime[] startEndPair = new LocalDateTime[2];
-            startEndPair[0] = LocalDateTime.parse(splittedString[0], FORMATTER);
-            startEndPair[1] = LocalDateTime.parse(splittedString[1], FORMATTER);
-            startEndPairs.add(startEndPair);
+            TimeSegment segment = new TimeSegment(
+                LocalDateTime.parse(splittedString[0], FORMATTER),
+                LocalDateTime.parse(splittedString[1], FORMATTER)
+            );
+            startEndPairs.add(segment);
         }
         return startEndPairs;
     }
 
-    private static List<Duration> getIntervals(List<LocalDateTime[]> startEndPairs) {
+    private static List<Duration> getIntervals(List<TimeSegment> startEndPairs) {
         List<Duration> intervals = new ArrayList<>();
         for (var startEndPair : startEndPairs) {
-            intervals.add(Duration.between(startEndPair[0], startEndPair[1]));
+            intervals.add(Duration.between(startEndPair.start(), startEndPair.end()));
         }
         return intervals;
     }
@@ -49,5 +52,8 @@ public class TimeCounter {
             total += interval.toMinutes();
         }
         return total / intervals.size();
+    }
+
+    private record TimeSegment(LocalDateTime start, LocalDateTime end) {
     }
 }

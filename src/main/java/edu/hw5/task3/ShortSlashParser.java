@@ -21,16 +21,16 @@ public class ShortSlashParser implements DateParser {
 
     @Override
     public LocalDate parseDate(String date) {
-        var nums = getNumbersOfDate(date);
-        return LocalDate.of(nums[YEAR_INDEX], nums[MONTH_INDEX], nums[DAY_INDEX]);
+        var dateComponents = getNumbersOfDate(date);
+        return LocalDate.of(dateComponents.year(), dateComponents.month(), dateComponents.day());
     }
 
-    private int[] getNumbersOfDate(String dateString) {
+    private DateComponents getNumbersOfDate(String dateString) {
         int[] nums = Arrays
             .stream(dateString.split("/"))
             .mapToInt(Integer::parseInt)
             .toArray();
         nums[YEAR_INDEX] += CURRENT_CENTURY;
-        return nums;
+        return new DateComponents(nums[YEAR_INDEX], nums[MONTH_INDEX], nums[DAY_INDEX]);
     }
 }

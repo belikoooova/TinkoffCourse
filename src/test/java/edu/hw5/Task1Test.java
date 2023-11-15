@@ -7,13 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class Task1Test {
-    private static final int CORRECT_HOURS = 3;
-    private static final int CORRECT_MINUTES = 40;
-    private static final int MULTIPLICATOR = 60;
-
     @Test
     @DisplayName("Sample test")
     void sampleTest() {
@@ -26,9 +23,7 @@ class Task1Test {
         var result = TimeCounter.getAverageTime(data);
 
         // then
-        var totalSecs = result.getSeconds();
-        assertThat((totalSecs / MULTIPLICATOR) % MULTIPLICATOR).isEqualTo(CORRECT_MINUTES);
-        assertThat(totalSecs / (MULTIPLICATOR * MULTIPLICATOR)).isEqualTo(CORRECT_HOURS);
+        assertEquals("3ч 40м", result);
     }
 
     @Test

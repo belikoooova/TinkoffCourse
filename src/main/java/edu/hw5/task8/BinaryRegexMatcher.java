@@ -3,31 +3,29 @@ package edu.hw5.task8;
 import java.util.regex.Pattern;
 
 public class BinaryRegexMatcher {
-    public BinaryRegexMatcher() {
-    }
+    private static final Pattern FIRST = Pattern.compile("^([01]{2})*[01]$");
+    private static final Pattern SECOND = Pattern.compile("^0([01]{2})*$|^1[01]([01]{2})*$");
+    private static final Pattern THIRD = Pattern.compile("^1*((01*){3})*$");
+    private static final Pattern FIFTH = Pattern.compile("^1$|^(1[01])*$");
+    private static final Pattern SEVENTH = Pattern.compile("^1?(0*010+)*1?$");
 
     public boolean checkFirstRule(String string) {
-        Pattern pattern = Pattern.compile("^([01]{2})*[01]$");
-        return pattern.matcher(string).find();
+        return FIRST.matcher(string).find();
     }
 
     public boolean checkSecondRule(String string) {
-        Pattern pattern = Pattern.compile("^0([01]{2})*$|^1[01]([01]{2})*$");
-        return pattern.matcher(string).find();
+        return SECOND.matcher(string).find();
     }
 
     public boolean checkThirdRule(String string) {
-        Pattern pattern = Pattern.compile("^1*((01*){3})*$");
-        return pattern.matcher(string).find();
+        return THIRD.matcher(string).find();
     }
 
     public boolean checkFifthRule(String string) {
-        Pattern pattern = Pattern.compile("^1$|^(1[01])*$");
-        return pattern.matcher(string).find();
+        return FIFTH.matcher(string).find();
     }
 
     public boolean checkSeventhRule(String string) {
-        Pattern pattern = Pattern.compile("^1?(0*010+)*1?$");
-        return pattern.matcher(string).find();
+        return SEVENTH.matcher(string).find();
     }
 }
