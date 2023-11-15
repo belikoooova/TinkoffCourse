@@ -13,14 +13,13 @@ import java.nio.file.Path;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.Checksum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
 public class FileOutputsComposer {
-    Checksum checksum;
+    @Getter Checksum checksum;
     String fileName;
-
-    public Checksum getChecksum() {
-        return checksum;
-    }
 
     public FileOutputsComposer(String fileName) {
         this.fileName = fileName;

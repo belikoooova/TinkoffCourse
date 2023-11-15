@@ -8,11 +8,11 @@ import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HackerNews {
-    private HackerNews() {
-    }
-
     public static long[] hackerNewsTopStories() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest
             .newBuilder()

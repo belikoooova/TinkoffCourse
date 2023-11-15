@@ -5,14 +5,14 @@ import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("MagicNumber")
 public class PortScanner {
-    private PortScanner() {
-    }
-
     private static final int MAX_PORT = 49151;
     private static final Logger LOGGER = LogManager.getLogger();
 

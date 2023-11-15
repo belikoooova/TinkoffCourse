@@ -3,11 +3,11 @@ package edu.hw6.task2;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CopiedFileHandler {
-    private CopiedFileHandler() {
-    }
-
     public static void cloneFile(Path path) throws IOException {
         if (!Files.exists(path)) {
             Files.createFile(path);

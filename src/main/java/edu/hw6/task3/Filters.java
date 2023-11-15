@@ -3,11 +3,11 @@ package edu.hw6.task3;
 import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.util.regex.Pattern;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Filters {
-    private Filters() {
-    }
-
     public static AbstractFilter regularFile = Files::isRegularFile;
     public static AbstractFilter readable = Files::isReadable;
     public static AbstractFilter writable = Files::isWritable;
