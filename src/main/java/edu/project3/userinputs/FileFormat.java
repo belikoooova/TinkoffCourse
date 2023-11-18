@@ -1,4 +1,4 @@
-package edu.project3;
+package edu.project3.userinputs;
 
 public enum FileFormat {
     MARKDOWN,

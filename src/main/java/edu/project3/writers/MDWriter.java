@@ -1,6 +1,6 @@
 package edu.project3.writers;
 
-import edu.project3.LogReport;
+import edu.project3.logs.LogReport;
 import lombok.AllArgsConstructor;
 
 import java.io.FileOutputStream;

@@ -1,5 +1,6 @@
-package edu.project3;
+package edu.project3.logs;
 
+import edu.project3.userinputs.UserInputRecord;
 import lombok.AllArgsConstructor;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
