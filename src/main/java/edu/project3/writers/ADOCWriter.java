@@ -1,22 +1,24 @@
 package edu.project3.writers;
 
 import edu.project3.logs.LogReport;
-import lombok.AllArgsConstructor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import lombok.AllArgsConstructor;
 import static edu.project3.writers.WriterUtils.FORMATTER;
 
 @AllArgsConstructor
 public class ADOCWriter implements Writer {
     private LogReport logReport;
-    private static final String path = "logReport.adoc";
+    private static final String PATH = "logReport.adoc";
+    private static final String TWO_ARGS_LINE = "| %s | %d\n";
+    private static final String SEPARATOR = "|===\n";
+    private static final String HEADER = "[options=\"header\"]\n";
 
     @Override
     public void write() {
-        WriterUtils.deleteIfExist(path);
-        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
+        WriterUtils.deleteIfExist(PATH);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(PATH);
              PrintWriter printWriter = new PrintWriter(fileOutputStream)) {
             printWriter.println(getAdocString());
         } catch (IOException e) {
@@ -24,7 +26,7 @@ public class ADOCWriter implements Writer {
         }
     }
 
-        private String getAdocString() {
+    private String getAdocString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getGeneralInfo());
         stringBuilder.append(getResources());
@@ -36,8 +38,8 @@ public class ADOCWriter implements Writer {
     private String getGeneralInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("==== Общая информация\n\n");
-        stringBuilder.append("[options=\"header\"]\n");
-        stringBuilder.append("|===\n");
+        stringBuilder.append(HEADER);
+        stringBuilder.append(SEPARATOR);
         stringBuilder.append("| Метрика | Значение\n");
 
         stringBuilder.append(String.format(
@@ -59,34 +61,34 @@ public class ADOCWriter implements Writer {
             logReport.maxAmountRequestsPerDay()
         ));
 
-        stringBuilder.append("|===\n");
+        stringBuilder.append(SEPARATOR);
         return stringBuilder.toString();
     }
 
     private String getResources() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("==== Запрашиваемые ресурсы\n\n");
-        stringBuilder.append("[options=\"header\"]\n");
-        stringBuilder.append("|===\n");
+        stringBuilder.append(HEADER);
+        stringBuilder.append(SEPARATOR);
         stringBuilder.append("| Ресурс | Количество\n");
 
         for (var resourceWithAmount : logReport.mostPopularResources()) {
             stringBuilder.append(String.format(
-                "| %s | %d\n",
+                TWO_ARGS_LINE,
                 resourceWithAmount.getKey(),
                 resourceWithAmount.getValue()
             ));
         }
 
-        stringBuilder.append("|===\n");
+        stringBuilder.append(SEPARATOR);
         return stringBuilder.toString();
     }
 
     private String getCodes() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("==== Коды ответа\n\n");
-        stringBuilder.append("[options=\"header\"]\n");
-        stringBuilder.append("|===\n");
+        stringBuilder.append(HEADER);
+        stringBuilder.append(SEPARATOR);
         stringBuilder.append("| Код | Имя | Количество\n");
 
         for (var codeWithAmount : logReport.mostPopularAnswers()) {
@@ -98,27 +100,26 @@ public class ADOCWriter implements Writer {
             ));
         }
 
-        stringBuilder.append("|===\n");
+        stringBuilder.append(SEPARATOR);
         return stringBuilder.toString();
     }
 
     private String getTypes() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("==== Типы запроса\n\n");
-        stringBuilder.append("[options=\"header\"]\n");
-        stringBuilder.append("|===\n");
+        stringBuilder.append(HEADER);
+        stringBuilder.append(SEPARATOR);
         stringBuilder.append("| Тип | Количество\n");
 
         for (var typeWithAmount : logReport.mostPopularTypes()) {
             stringBuilder.append(String.format(
-                "| %s | %d\n",
+                TWO_ARGS_LINE,
                 typeWithAmount.getKey(),
                 typeWithAmount.getValue()
             ));
         }
 
-        stringBuilder.append("|===\n");
+        stringBuilder.append(SEPARATOR);
         return stringBuilder.toString();
     }
-
 }

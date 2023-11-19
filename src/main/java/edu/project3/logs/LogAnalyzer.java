@@ -1,13 +1,13 @@
 package edu.project3.logs;
 
 import edu.project3.userinputs.UserInputRecord;
-import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class LogAnalyzer {
@@ -57,17 +57,20 @@ public class LogAnalyzer {
     }
 
     private List<Map.Entry<String, Long>> getMostPopularResources() {
-        Map<String, Long> map = logs.stream().collect(Collectors.groupingBy(LogRecord::resource, Collectors.counting()));
+        Map<String, Long> map =
+            logs.stream().collect(Collectors.groupingBy(LogRecord::resource, Collectors.counting()));
         return getTop(map);
     }
 
     private List<Map.Entry<Integer, Long>> getMostPopularAnswers() {
-        Map<Integer, Long> map = logs.stream().collect(Collectors.groupingBy(LogRecord::httpCode, Collectors.counting()));
+        Map<Integer, Long> map =
+            logs.stream().collect(Collectors.groupingBy(LogRecord::httpCode, Collectors.counting()));
         return getTop(map);
     }
 
     private List<Map.Entry<String, Long>> getMostPopularTypes() {
-        Map<String, Long> map = logs.stream().collect(Collectors.groupingBy(LogRecord::requestType, Collectors.counting()));
+        Map<String, Long> map =
+            logs.stream().collect(Collectors.groupingBy(LogRecord::requestType, Collectors.counting()));
         return getTop(map);
     }
 

@@ -1,23 +1,23 @@
 package edu.project3.writers;
 
 import edu.project3.logs.LogReport;
-import lombok.AllArgsConstructor;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import lombok.AllArgsConstructor;
 import static edu.project3.writers.WriterUtils.FORMATTER;
 
 @AllArgsConstructor
 public class MDWriter implements Writer {
     private LogReport logReport;
-    private static final String path = "logReport.md";
+    private static final String PATH = "logReport.md";
+    private static final String TWO_ARGS_LINE = "| %s | %d |\n";
 
     @Override
     public void write() {
-        WriterUtils.deleteIfExist(path);
-        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
-            PrintWriter printWriter = new PrintWriter(fileOutputStream)) {
+        WriterUtils.deleteIfExist(PATH);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(PATH);
+             PrintWriter printWriter = new PrintWriter(fileOutputStream)) {
             printWriter.println(getMarkDownString());
         } catch (IOException e) {
             throw new RuntimeException("Error while writing to the file.", e);
@@ -66,7 +66,7 @@ public class MDWriter implements Writer {
         stringBuilder.append("|:---------------:|-----------:|\n");
         for (var resourceWithAmount : logReport.mostPopularResources()) {
             stringBuilder.append(String.format(
-                "| %s | %d |\n",
+                TWO_ARGS_LINE,
                 resourceWithAmount.getKey(),
                 resourceWithAmount.getValue()
             ));
@@ -97,7 +97,7 @@ public class MDWriter implements Writer {
         stringBuilder.append("|:------------:|-----------:|\n");
         for (var typeWithAmount : logReport.mostPopularTypes()) {
             stringBuilder.append(String.format(
-                "| %s | %d |\n",
+                TWO_ARGS_LINE,
                 typeWithAmount.getKey(),
                 typeWithAmount.getValue()
             ));

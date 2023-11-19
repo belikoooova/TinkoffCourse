@@ -14,7 +14,11 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@SuppressWarnings("ParameterAssignment")
 public class ReaderFacrtory {
     private static final Pattern HTTP_PATTERN = Pattern.compile(
         "^https?://(?:www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$");
@@ -49,7 +53,6 @@ public class ReaderFacrtory {
                 if (matcher.matches(file)) {
                     matchingFiles.add(file);
                 }
-                System.out.println(file);
                 return FileVisitResult.CONTINUE;
             }
         });

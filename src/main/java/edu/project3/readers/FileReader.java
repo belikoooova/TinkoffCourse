@@ -1,13 +1,16 @@
 package edu.project3.readers;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -19,9 +22,8 @@ public class FileReader implements Reader {
     public List<String> read() {
         List<String> strings = new ArrayList<>();
         try (InputStream inputStream = new FileInputStream(String.valueOf(path));
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            System.out.println(path.toAbsolutePath());
+             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             while (bufferedReader.ready()) {
                 strings.add(bufferedReader.readLine());
             }

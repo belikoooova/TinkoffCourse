@@ -12,7 +12,7 @@ public class DirectoryReader implements Reader {
     @Override
     public List<String> read() {
         List<String> strings = new ArrayList<>();
-        for (Path path: paths) {
+        for (Path path : paths) {
             Reader fileReader = new FileReader(path);
             strings.addAll(fileReader.read());
         }

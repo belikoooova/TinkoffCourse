@@ -15,5 +15,5 @@ public record LogReport(
     List<Map.Entry<String, Long>> mostPopularTypes,
     long maxAmountRequestsPerDay,
     LocalDate dayWithMaxAmountRequests
-    ) {
+) {
 }

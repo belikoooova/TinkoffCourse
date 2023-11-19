@@ -11,7 +11,10 @@ import edu.project3.userinputs.UserInputRecord;
 import edu.project3.writers.Writer;
 import edu.project3.writers.WriterFactory;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Main {
     public static void main(String[] args) {
         UserInputRecord userInput = UserInputParser.parse(args);
