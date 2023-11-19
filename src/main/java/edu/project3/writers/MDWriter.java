@@ -1,6 +1,6 @@
 package edu.project3.writers;
 
-import edu.project3.logs.LogReport;
+import edu.project3.log.LogReport;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +24,7 @@ public class MDWriter implements Writer {
         }
     }
 
-    private String getMarkDownString() {
+    public String getMarkDownString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getGeneralInfo());
         stringBuilder.append(getResources());
@@ -40,11 +40,11 @@ public class MDWriter implements Writer {
         stringBuilder.append("|:---------------------:|-------------:|\n");
         stringBuilder.append(String.format(
             "|    Начальная дата     |   %s|\n",
-            logReport.startDate() == null ? "-" : logReport.startDate().format(FORMATTER)
+            logReport.startDate() == null ? "-" : logReport.startDate().toLocalDate().format(FORMATTER)
         ));
         stringBuilder.append(String.format(
             "|     Конечная дата     |   %s|\n",
-            logReport.endDate() == null ? "-" : logReport.endDate().format(FORMATTER)
+            logReport.endDate() == null ? "-" : logReport.endDate().toLocalDate().format(FORMATTER)
         ));
         stringBuilder.append(String.format("|  Количество запросов  |       %d |\n", logReport.totalAmount()));
         stringBuilder.append(String.format("|  Средний размер ответа  |       %d |\n", logReport.averageSize()));

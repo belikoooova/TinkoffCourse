@@ -1,7 +1,7 @@
 package edu.project3.writers;
 
-import edu.project3.logs.LogReport;
-import edu.project3.userinputs.UserInputRecord;
+import edu.project3.log.LogReport;
+import edu.project3.userinput.UserInputRecord;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

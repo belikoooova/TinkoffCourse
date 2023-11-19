@@ -1,4 +1,4 @@
-package edu.project3.userinputs;
+package edu.project3.userinput;
 
 import java.time.OffsetDateTime;
 import lombok.AccessLevel;

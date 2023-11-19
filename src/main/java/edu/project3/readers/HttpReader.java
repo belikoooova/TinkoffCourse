@@ -8,9 +8,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 
-@Setter
 @AllArgsConstructor
 public class HttpReader implements Reader {
     private URI uri;

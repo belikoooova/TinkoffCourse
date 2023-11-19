@@ -1,6 +1,6 @@
 package edu.project3.writers;
 
-import edu.project3.logs.LogReport;
+import edu.project3.log.LogReport;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,11 +39,11 @@ public class TXTWriter implements Writer {
         stringBuilder.append("Метрика\tЗначение\n");
         stringBuilder.append(String.format(
             "Начальная дата\t%s\n",
-            logReport.startDate() == null ? "-" : logReport.startDate().format(FORMATTER)
+            logReport.startDate() == null ? "-" : logReport.startDate().toLocalDate().format(FORMATTER)
         ));
         stringBuilder.append(String.format(
             "Конечная дата\t%s\n",
-            logReport.endDate() == null ? "-" : logReport.endDate().format(FORMATTER)
+            logReport.endDate() == null ? "-" : logReport.endDate().toLocalDate().format(FORMATTER)
         ));
         stringBuilder.append(String.format("Количество запросов\t%d\n", logReport.totalAmount()));
         stringBuilder.append(String.format("Средний размер ответа\t%d\n", logReport.averageSize()));

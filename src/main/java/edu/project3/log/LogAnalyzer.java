@@ -1,6 +1,6 @@
-package edu.project3.logs;
+package edu.project3.log;
 
-import edu.project3.userinputs.UserInputRecord;
+import edu.project3.userinput.UserInputRecord;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

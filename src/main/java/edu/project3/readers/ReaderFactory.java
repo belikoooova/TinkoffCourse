@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("ParameterAssignment")
-public class ReaderFacrtory {
+public class ReaderFactory {
     private static final Pattern HTTP_PATTERN = Pattern.compile(
         "^https?://(?:www\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$");
 
