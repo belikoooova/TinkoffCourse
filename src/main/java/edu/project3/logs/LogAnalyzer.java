@@ -2,29 +2,29 @@ package edu.project3.logs;
 
 import edu.project3.userinputs.UserInputRecord;
 import lombok.AllArgsConstructor;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class LogAnalyzer {
     private static final int TOP = 3;
-    private Stream<LogRecord> logs;
+    private List<LogRecord> logs;
     private UserInputRecord request;
 
     public LogReport getReport() {
         getLogsWithNeededDate();
         OffsetDateTime startDate = request.from();
         OffsetDateTime endDate = request.to();
-        long totalAmount = logs.count();
+        long totalAmount = logs.size();
         int averageSize = getAverageSize();
         var mostPopularResources = getMostPopularResources();
         var mostPopularAnswers = getMostPopularAnswers();
         var mostPopularTypes = getMostPopularTypes();
-        long maxAmountRequestsPerDay = getMaxAmountRequestsPerDay().longValue();
+        long maxAmountRequestsPerDay = getMaxAmountRequestsPerDay() == null ? 0 : getMaxAmountRequestsPerDay();
         var dayWithMaxAmountRequests = getDayWithMaxAmountRequests();
         return new LogReport(
             startDate,
@@ -42,32 +42,32 @@ public class LogAnalyzer {
     private void getLogsWithNeededDate() {
         OffsetDateTime startDate = request.from() == null ? OffsetDateTime.MIN : request.from();
         OffsetDateTime endDate = request.to() == null ? OffsetDateTime.MAX : request.to();
-        var logList = logs.toList();
+        var logList = logs;
         List<LogRecord> newLogList = new ArrayList<>();
         for (var log : logList) {
             if (!log.date().isBefore(startDate) && !log.date().isAfter(endDate)) {
                 newLogList.add(log);
             }
         }
-        logs = newLogList.stream();
+        logs = newLogList;
     }
 
     private int getAverageSize() {
-        return ((int) logs.mapToInt(LogRecord::size).average().getAsDouble());
+        return ((int) logs.stream().mapToInt(LogRecord::size).average().orElse(0));
     }
 
     private List<Map.Entry<String, Long>> getMostPopularResources() {
-        Map<String, Long> map = logs.collect(Collectors.groupingBy(LogRecord::resource, Collectors.counting()));
+        Map<String, Long> map = logs.stream().collect(Collectors.groupingBy(LogRecord::resource, Collectors.counting()));
         return getTop(map);
     }
 
     private List<Map.Entry<Integer, Long>> getMostPopularAnswers() {
-        Map<Integer, Long> map = logs.collect(Collectors.groupingBy(LogRecord::httpCode, Collectors.counting()));
+        Map<Integer, Long> map = logs.stream().collect(Collectors.groupingBy(LogRecord::httpCode, Collectors.counting()));
         return getTop(map);
     }
 
     private List<Map.Entry<String, Long>> getMostPopularTypes() {
-        Map<String, Long> map = logs.collect(Collectors.groupingBy(LogRecord::requestType, Collectors.counting()));
+        Map<String, Long> map = logs.stream().collect(Collectors.groupingBy(LogRecord::requestType, Collectors.counting()));
         return getTop(map);
     }
 
@@ -83,16 +83,22 @@ public class LogAnalyzer {
     }
 
     private Long getMaxAmountRequestsPerDay() {
+        if (groupAndSortByDate().isEmpty()) {
+            return null;
+        }
         return groupAndSortByDate().get(groupAndSortByDate().size() - 1).getValue();
     }
 
-    private OffsetDateTime getDayWithMaxAmountRequests() {
+    private LocalDate getDayWithMaxAmountRequests() {
+        if (groupAndSortByDate().isEmpty()) {
+            return null;
+        }
         return groupAndSortByDate().get(groupAndSortByDate().size() - 1).getKey();
     }
 
-    private List<Map.Entry<OffsetDateTime, Long>> groupAndSortByDate() {
-        var map = logs.collect(Collectors.groupingBy(LogRecord::date, Collectors.counting()));
-        List<Map.Entry<OffsetDateTime, Long>> list = new ArrayList<>(map.entrySet());
+    private List<Map.Entry<LocalDate, Long>> groupAndSortByDate() {
+        var map = logs.stream().collect(Collectors.groupingBy(log -> log.date().toLocalDate(), Collectors.counting()));
+        List<Map.Entry<LocalDate, Long>> list = new ArrayList<>(map.entrySet());
         list.sort(Map.Entry.comparingByValue());
         return list;
     }

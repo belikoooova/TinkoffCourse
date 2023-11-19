@@ -5,15 +5,18 @@ import lombok.AllArgsConstructor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import static edu.project3.writers.WriterUtils.FORMATTER;
 
 @AllArgsConstructor
 public class ADOCWriter implements Writer {
     private LogReport logReport;
+    private static final String path = "logReport.adoc";
 
     @Override
     public void write() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("logReport.md");
+        WriterUtils.deleteIfExist(path);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
              PrintWriter printWriter = new PrintWriter(fileOutputStream)) {
             printWriter.println(getAdocString());
         } catch (IOException e) {
@@ -21,11 +24,10 @@ public class ADOCWriter implements Writer {
         }
     }
 
-    private String getAdocString() {
+        private String getAdocString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getGeneralInfo());
         stringBuilder.append(getResources());
-        stringBuilder.append(getAnswers());
         stringBuilder.append(getCodes());
         stringBuilder.append(getTypes());
         return stringBuilder.toString();
@@ -62,25 +64,6 @@ public class ADOCWriter implements Writer {
     }
 
     private String getResources() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("==== Запрашиваемые ресурсы\n\n");
-        stringBuilder.append("[options=\"header\"]\n");
-        stringBuilder.append("|===\n");
-        stringBuilder.append("| Ресурс | Количество\n");
-
-        for (var resourceWithAmount : logReport.mostPopularResources()) {
-            stringBuilder.append(String.format(
-                "| %s | %d\n",
-                resourceWithAmount.getKey(),
-                resourceWithAmount.getValue()
-            ));
-        }
-
-        stringBuilder.append("|===\n");
-        return stringBuilder.toString();
-    }
-
-    private String getAnswers() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("==== Запрашиваемые ресурсы\n\n");
         stringBuilder.append("[options=\"header\"]\n");

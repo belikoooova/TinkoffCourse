@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WriterFactory {
     public static Writer getWriter(UserInputRecord request, LogReport logReport) {
+        if (request.format() == null) {
+            return new TXTWriter(logReport);
+        }
         switch (request.format()) {
             case ADOC -> {
                 return new ADOCWriter(logReport);

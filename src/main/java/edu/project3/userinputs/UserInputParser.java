@@ -3,7 +3,9 @@ package edu.project3.userinputs;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.cli.*;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserInputParser {
@@ -11,6 +13,7 @@ public class UserInputParser {
     private static final Option from = Option.builder("f").longOpt("from").hasArg().build();
     private static final Option to = Option.builder("t").longOpt("to").hasArg().build();
     private static final Option format = Option.builder("fmt").longOpt("format").hasArg().build();
+
     public static UserInputRecord parse(String[] args) {
         CommandLine commandLine;
         try {
@@ -39,7 +42,7 @@ public class UserInputParser {
 
     private static OffsetDateTime getDate(Option option, CommandLine commandLine) {
         if (commandLine.hasOption(option)) {
-            return OffsetDateTime.parse(commandLine.getOptionValue(option));
+            return OffsetDateTime.parse(commandLine.getOptionValue(option) + "T00:00:00+00:00");
         }
         return null;
     }

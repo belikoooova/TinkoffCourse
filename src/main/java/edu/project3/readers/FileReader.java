@@ -21,6 +21,7 @@ public class FileReader implements Reader {
         try (InputStream inputStream = new FileInputStream(String.valueOf(path));
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+            System.out.println(path.toAbsolutePath());
             while (bufferedReader.ready()) {
                 strings.add(bufferedReader.readLine());
             }

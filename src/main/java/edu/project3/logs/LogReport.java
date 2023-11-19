@@ -1,5 +1,6 @@
 package edu.project3.logs;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,6 @@ public record LogReport(
     List<Map.Entry<Integer, Long>> mostPopularAnswers,
     List<Map.Entry<String, Long>> mostPopularTypes,
     long maxAmountRequestsPerDay,
-    OffsetDateTime dayWithMaxAmountRequests
+    LocalDate dayWithMaxAmountRequests
     ) {
 }

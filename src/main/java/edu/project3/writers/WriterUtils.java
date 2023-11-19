@@ -1,11 +1,16 @@
 package edu.project3.writers;
 
+import edu.project3.logs.LogReport;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WriterUtils {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
+
     public static Map<Integer, String> getHttpStatusDescriptions() {
         Map<Integer, String> httpStatusDescriptions = new HashMap<>();
 
@@ -74,5 +79,15 @@ public class WriterUtils {
         httpStatusDescriptions.put(511, "Network Authentication Required");
 
         return httpStatusDescriptions;
+    }
+
+    public static void deleteIfExist(String path) {
+        if (Files.exists(Path.of(path))) {
+            try {
+                Files.delete(Path.of(path));
+            } catch (IOException e) {
+                throw new RuntimeException("Error while deleting existing file.", e);
+            }
+        }
     }
 }

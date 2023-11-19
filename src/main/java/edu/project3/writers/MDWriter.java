@@ -11,14 +11,16 @@ import static edu.project3.writers.WriterUtils.FORMATTER;
 @AllArgsConstructor
 public class MDWriter implements Writer {
     private LogReport logReport;
+    private static final String path = "logReport.md";
 
     @Override
     public void write() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("logReport.md");
+        WriterUtils.deleteIfExist(path);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(path);
             PrintWriter printWriter = new PrintWriter(fileOutputStream)) {
             printWriter.println(getMarkDownString());
         } catch (IOException e) {
-            throw new RuntimeException("Error while writing to the file", e);
+            throw new RuntimeException("Error while writing to the file.", e);
         }
     }
 
@@ -26,7 +28,6 @@ public class MDWriter implements Writer {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getGeneralInfo());
         stringBuilder.append(getResources());
-        stringBuilder.append(getAnswers());
         stringBuilder.append(getCodes());
         stringBuilder.append(getTypes());
         return stringBuilder.toString();
@@ -59,21 +60,6 @@ public class MDWriter implements Writer {
     }
 
     private String getResources() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("#### Запрашиваемые ресурсы\n\n");
-        stringBuilder.append("|     Ресурс      | Количество |\n");
-        stringBuilder.append("|:---------------:|-----------:|\n");
-        for (var resourceWithAmount : logReport.mostPopularResources()) {
-            stringBuilder.append(String.format(
-                "| %s | %d |\n",
-                resourceWithAmount.getKey(),
-                resourceWithAmount.getValue()
-            ));
-        }
-        return stringBuilder.toString();
-    }
-
-    private String getAnswers() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("#### Запрашиваемые ресурсы\n\n");
         stringBuilder.append("|     Ресурс      | Количество |\n");

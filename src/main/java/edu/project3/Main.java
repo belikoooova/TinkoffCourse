@@ -10,13 +10,13 @@ import edu.project3.userinputs.UserInputParser;
 import edu.project3.userinputs.UserInputRecord;
 import edu.project3.writers.Writer;
 import edu.project3.writers.WriterFactory;
-import java.util.stream.Stream;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         UserInputRecord userInput = UserInputParser.parse(args);
         Reader reader = ReaderFacrtory.getReader(userInput.path());
-        Stream<LogRecord> logRecordStream = reader.read().stream().map(LogParser::parse);
+        List<LogRecord> logRecordStream = reader.read().stream().map(LogParser::parse).toList();
         LogReport report = new LogAnalyzer(logRecordStream, userInput).getReport();
         Writer writer = WriterFactory.getWriter(userInput, report);
         writer.write();

@@ -13,7 +13,6 @@ public class DirectoryReader implements Reader {
     public List<String> read() {
         List<String> strings = new ArrayList<>();
         for (Path path: paths) {
-            // TODO: Maybe use setters?
             Reader fileReader = new FileReader(path);
             strings.addAll(fileReader.read());
         }
