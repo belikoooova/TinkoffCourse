@@ -2,11 +2,12 @@ package edu.hw6.task1;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.AbstractMap;
@@ -15,16 +16,17 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DiskMap implements Map<String, String> {
-    private static int counter = 0;
     private static final String IO_ERROR_MESSAGE = "Ошибка ввода-вывода";
+    private static final AtomicInteger COUNTER = new AtomicInteger();
     private Path path;
 
     public DiskMap() throws IOException {
-        createDirectory();
+        createDirectoryIfNecessary();
     }
 
     @Override
@@ -60,15 +62,17 @@ public class DiskMap implements Map<String, String> {
     @Override
     public String get(Object key) {
         Path filePath = path.resolve(key.toString());
-        String value;
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(String.valueOf(filePath)))) {
-            value = bufferedReader.readLine();
-        } catch (FileNotFoundException e) {
-            value = null;
+        String stringPath = String.valueOf(filePath);
+        if (!Files.exists(filePath)) {
+            return null;
+        }
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(filePath.toFile(), "rw");
+             FileLock lock = randomAccessFile.getChannel().tryLock();
+             BufferedReader bufferedReader = new BufferedReader(new FileReader(stringPath))) {
+            return bufferedReader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(IO_ERROR_MESSAGE, e);
         }
-        return value;
     }
 
     @Nullable
@@ -81,7 +85,8 @@ public class DiskMap implements Map<String, String> {
         } catch (IOException e) {
             throw new RuntimeException(IO_ERROR_MESSAGE, e);
         }
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter(String.valueOf(filePath)))) {
+        String stringPath = String.valueOf(filePath);
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(stringPath))) {
             printWriter.println(value);
         } catch (IOException e) {
             throw new RuntimeException(IO_ERROR_MESSAGE, e);
@@ -112,11 +117,9 @@ public class DiskMap implements Map<String, String> {
 
     @Override
     public void clear() {
-        while (!isEmpty()) {
-            for (var key : keySet()) {
-                remove(key);
-                break;
-            }
+        var copiedKeySet = keySet();
+        for (var key : copiedKeySet) {
+            remove(key);
         }
     }
 
@@ -151,8 +154,8 @@ public class DiskMap implements Map<String, String> {
         return set;
     }
 
-    private void createDirectory() throws IOException {
-        String directoryName = "DiskMap" + ++counter;
+    private void createDirectoryIfNecessary() throws IOException {
+        String directoryName = "DiskMap" + COUNTER.incrementAndGet();
         path = Path.of(System.getProperty("user.dir")).resolve(directoryName);
         if (Files.exists(path)) {
             File[] keys = new File(String.valueOf(path)).listFiles();

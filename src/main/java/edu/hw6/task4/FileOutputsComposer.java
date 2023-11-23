@@ -13,20 +13,20 @@ import java.nio.file.Path;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.Checksum;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class FileOutputsComposer {
-    @Getter Checksum checksum;
-    String fileName;
+    public @Getter Checksum checksum;
+    private Path path;
 
     public FileOutputsComposer(String fileName) {
-        this.fileName = fileName;
+        this.path = Path.of(System.getProperty("user.dir")).resolve("HW6Task4File").resolve(fileName);
     }
 
     public void write() throws IOException {
-        Path path = Path.of(System.getProperty("user.dir")).resolve("HW6Task4File").resolve(fileName);
         if (Files.exists(path)) {
             Files.delete(path);
         }

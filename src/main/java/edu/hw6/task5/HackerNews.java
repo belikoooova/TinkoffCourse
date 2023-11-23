@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HackerNews {
@@ -37,7 +38,8 @@ public class HackerNews {
             .body();
     }
 
-    public static String newsTitle(long id) throws IOException, InterruptedException {
+    @SneakyThrows()
+    public static String newsTitle(long id) {
         String uri = String.format("https://hacker-news.firebaseio.com/v0/item/%d.json", id);
         HttpRequest request = HttpRequest
             .newBuilder()
