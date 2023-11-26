@@ -1,6 +1,7 @@
 package edu.hw7;
 
 import edu.hw7.task1.Value;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,8 +9,9 @@ class Task1Test {
     private static final int AMOUNT_OF_THREADS = 10;
     private static final int AMOUNT_OF_INCREMENTS_PER_THREAD = 1000;
 
+    @SneakyThrows
     @Test
-    void testMultipleThreadsIncrementing() throws InterruptedException {
+    void testMultipleThreadsIncrementing() {
         // given
         Value value = new Value();
         Thread[] threads = getThreadsArray(value);

@@ -4,6 +4,7 @@ import edu.hw7.task3.DuplicatedPersonIdException;
 import edu.hw7.task3.InMemoryPersonDatabase;
 import edu.hw7.task3.Person;
 import edu.hw7.task3.PersonDatabase;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -97,8 +98,9 @@ class Task3Test {
         assertTrue(results.contains(ANN));
     }
 
+    @SneakyThrows
     @Test
-    void testConcurrentAddAndSearch() throws InterruptedException {
+    void testConcurrentAddAndSearch() {
         // given
         PersonDatabase database = new InMemoryPersonDatabase();
         ExecutorService service = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
