@@ -29,6 +29,12 @@ public class PiUtils {
     @SneakyThrows
     public long getTimeOfCalculateInMultiThread(long iterationsAmount, int numberOfThreads) {
         long time = System.currentTimeMillis();
+        getPiInMultiThread(iterationsAmount, numberOfThreads);
+        return System.currentTimeMillis() - time;
+    }
+
+    @SneakyThrows
+    public double getPiInMultiThread(long iterationsAmount, int numberOfThreads) {
         PiCounter multiThreadPiCounter = new MultiThreadPiCounter();
         ExecutorService service = Executors.newFixedThreadPool(numberOfThreads);
         for (int i = 0; i < numberOfThreads; ++i) {
@@ -40,7 +46,6 @@ public class PiUtils {
         }
         service.shutdown();
         service.awaitTermination(1, TimeUnit.HOURS);
-        multiThreadPiCounter.getPiValue(iterationsAmount);
-        return System.currentTimeMillis() - time;
+        return multiThreadPiCounter.getPiValue(iterationsAmount);
     }
 }
