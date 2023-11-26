@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class Task3Test {
+class Task35Test {
     private static final int NOT_EXISTING_INDEX = 100;
     private static final int SAME_SIZE_AMOUNT = 2;
     private static final int NUMBER_OF_THREADS = 10;
@@ -98,11 +98,18 @@ class Task3Test {
     }
 
     @Test
-    void testConcurrentAddAndSearch() throws InterruptedException {
+    void testConcurrentRead() throws InterruptedException {
         // given
         PersonDatabase database = new InMemoryPersonDatabase();
         ExecutorService service = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         CountDownLatch latch = new CountDownLatch(NUMBER_OF_THREADS);
+        for (int id = 0; id < NUMBER_OF_THREADS; ++id) {
+            String name = "NAME" + id;
+            String address = "ADDRESS" + id;
+            String phone = "PHONE" + id;
+            Person person = new Person(id, name, address, phone);
+            database.add(person);
+        }
 
         // when
         for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
@@ -122,6 +129,42 @@ class Task3Test {
                     assertTrue(foundedByName.contains(person));
                     assertTrue(foundedByAddress.contains(person));
                     assertTrue(foundedByPhone.contains(person));
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+        latch.await();
+        service.shutdown();
+    }
+
+    @Test
+    void testConcurrentReadAndWrite() throws InterruptedException {
+        // given
+        PersonDatabase database = new InMemoryPersonDatabase();
+        ExecutorService service = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+        CountDownLatch latch = new CountDownLatch(NUMBER_OF_THREADS);
+
+        // when
+        for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
+            int id = i;
+            String name = "NAME" + id;
+            String address = "ADDRESS" + id;
+            String phone = "PHONE" + id;
+            service.submit(() -> {
+                try {
+                    Person person = new Person(id, name, address, phone);
+                    database.add(person);
+                } finally {
+                    latch.countDown();
+                }
+            });
+
+            service.submit(() -> {
+                try {
+                    List<Person> foundedByName = database.findByName(name);
+                    List<Person> foundedByAddress = database.findByName(phone);
+                    List<Person> foundedByPhone = database.findByName(phone);
                 } finally {
                     latch.countDown();
                 }
