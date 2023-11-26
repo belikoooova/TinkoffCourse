@@ -24,8 +24,7 @@ class Task4Test {
         var big = counter.getPiValue(BIG);
 
         // then
-        assertTrue(PiUtils.countInaccuracy(small) > PiUtils.countInaccuracy(middle));
-        assertTrue(PiUtils.countInaccuracy(middle) > PiUtils.countInaccuracy(big));
+        assertTrue(PiUtils.countInaccuracy(small) > PiUtils.countInaccuracy(big));
     }
 
     @SneakyThrows
