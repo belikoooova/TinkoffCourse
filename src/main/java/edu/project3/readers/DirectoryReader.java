@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class DirectoryReader implements Reader {
-    private List<Path> paths;
+    private final List<Path> paths;
 
     @Override
     public List<String> read() {

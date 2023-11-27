@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReaderTest {
-    private static final String FILE_PATH = "logs/logs2/logggg.txt";
+    private static final String FILE_PATH = "src/main/resources/logs/logs2/logggg.txt";
 
     @Test
     void testValidHttpPath() {
@@ -28,7 +28,7 @@ class ReaderTest {
     @Test
     void testGetDirectoryReaderWithValidPath() {
         // given
-        String path = "logs/**/logggg.txt";
+        String path = "src/**/logggg.txt";
 
         // when
         Reader reader = ReaderFactory.getReader(path);
@@ -42,7 +42,7 @@ class ReaderTest {
     @Test
     void testGetDirectoryReaderWithAnotherValidPath() {
         // given
-        String path = "logs/logs2/*";
+        String path = "src/**/logs2/*";
 
         // when
         Reader reader = ReaderFactory.getReader(path);

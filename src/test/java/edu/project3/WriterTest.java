@@ -21,11 +21,11 @@ class WriterTest {
 
         assertTrue(markdown.contains("#### Общая информация"));
         assertTrue(markdown.contains("|        Метрика        |     Значение |"));
-        assertTrue(markdown.contains("|    Начальная дата     |   2023-11-19|"));
-        assertTrue(markdown.contains("|     Конечная дата     |   2023-11-19|"));
+        assertTrue(markdown.contains("|    Начальная дата     |   2023-11-27|"));
+        assertTrue(markdown.contains("|     Конечная дата     |   2023-11-27|"));
         assertTrue(markdown.contains("|  Количество запросов  |       " + mockLogReport.totalAmount() + " |"));
         assertTrue(markdown.contains("|  Средний размер ответа  |       " + mockLogReport.averageSize() + " |"));
-        assertTrue(markdown.contains("| День с наибольшим числом запросов |   2023-11-19|"));
+        assertTrue(markdown.contains("| День с наибольшим числом запросов |   2023-11-27|"));
         assertTrue(markdown.contains(
             "|  Наибольшее число запросов за день  |       " + mockLogReport.maxAmountRequestsPerDay() + " |"));
 

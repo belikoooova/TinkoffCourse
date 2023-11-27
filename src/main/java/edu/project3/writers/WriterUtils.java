@@ -13,10 +13,9 @@ import lombok.NoArgsConstructor;
 @SuppressWarnings("MagicNumber")
 public class WriterUtils {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
+    public static final Map<Integer, String> httpStatusDescriptions = new HashMap<>();
 
     public static Map<Integer, String> getHttpStatusDescriptions() {
-        Map<Integer, String> httpStatusDescriptions = new HashMap<>();
-
         httpStatusDescriptions.put(100, "Continue");
         httpStatusDescriptions.put(101, "Switching Protocols");
         httpStatusDescriptions.put(102, "Processing");
