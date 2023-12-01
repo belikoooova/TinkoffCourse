@@ -115,15 +115,9 @@
 
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency>
-        <groupId>commons-codec</groupId>
-        <artifactId>commons-codec</artifactId>
-        <version>1.16.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-        <dependency>
-            <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>1.6.0</version>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.16.0</version>
         </dependency>
     </dependencies>
 
