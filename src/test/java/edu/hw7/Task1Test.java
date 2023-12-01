@@ -1,6 +1,6 @@
 package edu.hw7;
 
-import edu.hw7.task1.Value;
+import edu.hw7.task1.AtomicCounter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,8 +13,8 @@ class Task1Test {
     @Test
     void testMultipleThreadsIncrementing() {
         // given
-        Value value = new Value();
-        Thread[] threads = getThreadsArray(value);
+        AtomicCounter atomicCounter = new AtomicCounter();
+        Thread[] threads = getThreadsArray(atomicCounter);
 
         // when
         for (var thread : threads) {
@@ -26,16 +26,16 @@ class Task1Test {
         }
 
         // then
-        assertEquals(AMOUNT_OF_THREADS * AMOUNT_OF_INCREMENTS_PER_THREAD, value.get());
+        assertEquals(AMOUNT_OF_THREADS * AMOUNT_OF_INCREMENTS_PER_THREAD, atomicCounter.get());
     }
 
-    private static Thread[] getThreadsArray(Value value) {
+    private static Thread[] getThreadsArray(AtomicCounter atomicCounter) {
         Thread[] threads = new Thread[AMOUNT_OF_THREADS];
 
         for (int i = 0; i < AMOUNT_OF_THREADS; ++i) {
             threads[i] = new Thread(() -> {
                 for (int j = 0; j < AMOUNT_OF_INCREMENTS_PER_THREAD; ++j) {
-                    value.increment();
+                    atomicCounter.increment();
                 }
             });
         }

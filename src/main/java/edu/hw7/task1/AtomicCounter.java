@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class Value {
+public class AtomicCounter {
     private final AtomicInteger value = new AtomicInteger(0);
 
     public int get() {

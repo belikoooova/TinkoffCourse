@@ -3,6 +3,7 @@ package edu.hw7.task4;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
@@ -10,6 +11,7 @@ import lombok.experimental.UtilityClass;
 public class PiUtils {
     public static final double MULTIPLICATOR = 4d;
     private static final int PERCENT = 100;
+    private static final int TIMEOUT = 60;
 
     public static double countInaccuracy(double countedPi) {
         return PERCENT * Math.abs(Math.PI - countedPi) / Math.PI;
@@ -44,8 +46,24 @@ public class PiUtils {
                 }
             });
         }
-        service.shutdown();
-        service.awaitTermination(1, TimeUnit.HOURS);
+        shutdownAndAwaitTermination(service);
         return multiThreadPiCounter.getPiValue(iterationsAmount);
+    }
+
+    private void shutdownAndAwaitTermination(ExecutorService pool) {
+        pool.shutdown();
+        try {
+            if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                pool.shutdownNow();
+                if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                    throw new TimeoutException("Pool did not terminate");
+                }
+            }
+        } catch (InterruptedException ex) {
+            pool.shutdownNow();
+            Thread.currentThread().interrupt();
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

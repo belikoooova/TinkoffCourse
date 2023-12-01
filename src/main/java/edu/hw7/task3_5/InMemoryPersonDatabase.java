@@ -6,19 +6,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import lombok.SneakyThrows;
 
 public class InMemoryPersonDatabase implements PersonDatabase {
+    private static final int TIMEOUT = 60;
     private final ReadWriteLock lock = new ReentrantReadWriteLock(true);
     private final Map<Integer, Person> idMap = new HashMap<>();
     private final Map<String, Set<Integer>> nameMap = new HashMap<>();
     private final Map<String, Set<Integer>> addressMap = new HashMap<>();
     private final Map<String, Set<Integer>> phoneMap = new HashMap<>();
 
+    @SneakyThrows
     @Override
     public void add(Person person) {
-        lock.writeLock().lock();
+        boolean wasLocked = lock.writeLock().tryLock(TIMEOUT, TimeUnit.SECONDS);
+        if (!wasLocked) {
+            throw new TimeoutException("Timeout while adiing.");
+        }
         try {
             if (idMap.containsKey(person.id())) {
                 throw new DuplicatedPersonIdException(person.id());
@@ -33,9 +41,13 @@ public class InMemoryPersonDatabase implements PersonDatabase {
         }
     }
 
+    @SneakyThrows
     @Override
     public void delete(int id) {
-        lock.readLock().lock();
+        boolean wasLocked = lock.readLock().tryLock(TIMEOUT, TimeUnit.SECONDS);
+        if (!wasLocked) {
+            throw new TimeoutException("Timeout while deleting.");
+        }
         try {
             Person person = idMap.remove(id);
             if (person != null) {
@@ -48,18 +60,33 @@ public class InMemoryPersonDatabase implements PersonDatabase {
         }
     }
 
+    @SneakyThrows
     @Override
     public List<Person> findByName(String name) {
+        boolean wasLocked = lock.readLock().tryLock(TIMEOUT, TimeUnit.SECONDS);
+        if (!wasLocked) {
+            throw new TimeoutException("Timeout while searching by name.");
+        }
         return findByAttribute(nameMap, name);
     }
 
+    @SneakyThrows
     @Override
     public List<Person> findByAddress(String address) {
+        boolean wasLocked = lock.readLock().tryLock(TIMEOUT, TimeUnit.SECONDS);
+        if (!wasLocked) {
+            throw new TimeoutException("Timeout while searching by address.");
+        }
         return findByAttribute(addressMap, address);
     }
 
+    @SneakyThrows
     @Override
     public List<Person> findByPhone(String phone) {
+        boolean wasLocked = lock.readLock().tryLock(TIMEOUT, TimeUnit.SECONDS);
+        if (!wasLocked) {
+            throw new TimeoutException("Timeout while searching by phone.");
+        }
         return findByAttribute(phoneMap, phone);
     }
 
