@@ -9,9 +9,9 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class PiUtils {
-    public static final double MULTIPLICATOR = 4d;
     private static final int PERCENT = 100;
     private static final int TIMEOUT = 60;
+    public static final double MULTIPLICATOR = 4d;
 
     public static double countInaccuracy(double countedPi) {
         return PERCENT * Math.abs(Math.PI - countedPi) / Math.PI;
