@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,7 +19,7 @@ import static edu.hw8.task3.HackerUtils.getMappedInfo;
 @NoArgsConstructor
 public class MultiThreadHacker implements Hacker {
     private static final int NUMBER_OF_THREADS = 2;
-    private static final int MAX_TIME = 60;
+    private static final int TIMEOUT = 60;
 
     @SneakyThrows
     @Override
@@ -45,10 +46,7 @@ public class MultiThreadHacker implements Hacker {
                 });
             }
         }
-        service.shutdown();
-        if (!service.awaitTermination(MAX_TIME, TimeUnit.SECONDS)) {
-            service.shutdownNow();
-        }
+        shutdownAndAwaitTermination(service);
         if (usersByHashes.isEmpty()) {
             return passwordsByUsers;
         }
@@ -75,6 +73,23 @@ public class MultiThreadHacker implements Hacker {
             ));
         }
         return segments;
+    }
+
+    private void shutdownAndAwaitTermination(ExecutorService pool) {
+        pool.shutdown();
+        try {
+            if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                pool.shutdownNow();
+                if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                    throw new TimeoutException("Pool did not terminate");
+                }
+            }
+        } catch (InterruptedException ex) {
+            pool.shutdownNow();
+            Thread.currentThread().interrupt();
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private record Segment(long start, long end) {
