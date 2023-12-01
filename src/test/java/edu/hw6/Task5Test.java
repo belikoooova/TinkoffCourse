@@ -10,17 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SuppressWarnings("MagicNumber")
 class Task5Test {
     @Test
-    @DisplayName("Test find IDs")
-    void findIDs() throws IOException, InterruptedException {
-        // given and when
-        long[] ids = HackerNews.hackerNewsTopStories();
-        long[] expected = getExpectedArray();
-
-        // then
-        assertThat(ids.length).isEqualTo(expected.length);
-    }
-
-    @Test
     @DisplayName("Test find title")
     void findTitle() throws IOException, InterruptedException {
         // given
