@@ -72,7 +72,7 @@ class Task3Test {
         passwordsByUser.put("user1", "A9me");
         passwordsByUser.put("user2", "hOla");
         passwordsByUser.put("user3", "kI9");
-        passwordsByUser.put("user4", "R");
+        passwordsByUser.put("user4", "L");
         passwordsByUser.put("user5", "73k4");
 
         return passwordsByUser;
