@@ -63,7 +63,6 @@ public class ParallelBFSSolver extends RecursiveTask<List<Coordinate>> {
         if (shortestPath != null) {
             shortestPath.add(0, start);
         }
-
         return shortestPath;
     }
 }
