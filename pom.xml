@@ -28,6 +28,7 @@
         <java.release>21</java.release>
         <lombok.version>RELEASE</lombok.version>
         <mockito.version>5.7.0</mockito.version>
+        <bytebuddy.version>1.14.10</bytebuddy.version>
         <commons-codec.version>1.16.0</commons-codec.version>
         <commons-cli.version>1.6.0</commons-cli.version>
 
@@ -109,6 +110,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${bytebuddy.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
