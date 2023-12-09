@@ -29,7 +29,7 @@ public class ClientHandler implements Runnable {
             }
         } finally {
             client.close();
-            Server.getACTIVE_CONNECTIONS().decrementAndGet();
+            Server.getActiveConnections().decrementAndGet();
         }
     }
 }

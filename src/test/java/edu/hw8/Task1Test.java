@@ -56,27 +56,23 @@ class Task1Test {
     void testConnectionLimit() {
         ServerSocketChannel mockServerSocketChannel = mock(ServerSocketChannel.class);
         SocketChannel mockSocketChannel = mock(SocketChannel.class);
-        ExecutorService mockService = mock(ExecutorService.class);
 
-        // Предположим, что уже есть максимальное количество активных соединений
-        Server.getACTIVE_CONNECTIONS().set(MAX_CONNECTIONS);
+        Server.getActiveConnections().set(MAX_CONNECTIONS);
 
-        // Попытка установить новое соединение
         when(mockServerSocketChannel.accept()).thenReturn(mockSocketChannel);
 
         assertThrows(RuntimeException.class, () -> {
-            if (Server.getACTIVE_CONNECTIONS().get() < MAX_CONNECTIONS) {
+            if (Server.getActiveConnections().get() < MAX_CONNECTIONS) {
                 SocketChannel serverSocketChannel = mockServerSocketChannel.accept();
                 serverSocketChannel.configureBlocking(false);
                 ClientHandler handler = new ClientHandler(serverSocketChannel, DICTIONARY);
                 SERVICE.submit(handler);
-                Server.getACTIVE_CONNECTIONS().incrementAndGet();
+                Server.getActiveConnections().incrementAndGet();
             } else {
                 throw new RuntimeException("Too much clients.");
             }
         });
 
-        // Сброс счетчика активных соединений
-        Server.getACTIVE_CONNECTIONS().set(0);
+        Server.getActiveConnections().set(0);
     }
 }

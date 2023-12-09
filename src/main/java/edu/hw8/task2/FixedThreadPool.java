@@ -39,9 +39,14 @@ public class FixedThreadPool implements ThreadPool {
         }
     }
 
+    @SneakyThrows
     @Override
-    public void close() throws Exception {
+    public void close() {
         isRunning.set(false);
+        for (var thread : threads) {
+            thread.interrupt();
+            thread.join();
+        }
     }
 
     private class Worker extends Thread {

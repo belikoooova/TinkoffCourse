@@ -17,17 +17,13 @@ import static edu.hw8.task1.ClientServerUtils.readMessage;
 @SuppressWarnings("UncommentedMain")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Client {
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @SneakyThrows
     public static void main(String[] args) {
         try (SocketChannel socketChannel = SocketChannel.open()) {
             socketChannel.configureBlocking(false);
             socketChannel.connect(new InetSocketAddress(SERVER_ADDRESS, PORT));
-
-            while (!socketChannel.finishConnect()) {
-                LOGGER.info("Client is trying to connect to server");
-            }
 
             communicate(socketChannel);
         }

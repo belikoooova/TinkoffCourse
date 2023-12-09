@@ -11,9 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,13 +21,15 @@ import static edu.hw8.task1.ClientServerUtils.SERVER_ADDRESS;
 @SuppressWarnings("UncommentedMain")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Server {
-    @Setter
     private static final Logger LOGGER = LogManager.getLogger();
     public static final PhrasesDictionary DICTIONARY = new InMemoryPhrasesDictionary();
     private static final int MAX_CONNECTIONS = 10;
     public static final ExecutorService SERVICE = Executors.newFixedThreadPool(MAX_CONNECTIONS);
-    @Getter
     private static final AtomicInteger ACTIVE_CONNECTIONS = new AtomicInteger(0);
+
+    public static AtomicInteger getActiveConnections() {
+        return ACTIVE_CONNECTIONS;
+    }
 
     @SneakyThrows
     public static void main(String[] args) {
@@ -46,26 +46,30 @@ public class Server {
 
                 while (iter.hasNext()) {
                     SelectionKey key = iter.next();
-
-                    if (key.isAcceptable()) {
-                        if (ACTIVE_CONNECTIONS.get() < MAX_CONNECTIONS) {
-                            SocketChannel client = serverSocketChannel.accept();
-                            client.configureBlocking(false);
-                            ClientHandler handler = new ClientHandler(client, DICTIONARY);
-                            SERVICE.submit(handler);
-                            ACTIVE_CONNECTIONS.incrementAndGet();
-                        } else {
-                            LOGGER.info("Client is waiting.");
-                            // For test
-                            throw new RuntimeException("Too much clients.");
-                        }
-                    }
-
+                    tryAcceptClient(key, serverSocketChannel);
                     iter.remove();
                 }
             }
         } finally {
             SERVICE.shutdown();
+        }
+    }
+
+    @SneakyThrows
+    private static void tryAcceptClient(SelectionKey key, ServerSocketChannel serverSocketChannel) {
+        if (!key.isAcceptable()) {
+            return;
+        }
+        if (ACTIVE_CONNECTIONS.get() < MAX_CONNECTIONS) {
+            SocketChannel client = serverSocketChannel.accept();
+            client.configureBlocking(false);
+            ClientHandler handler = new ClientHandler(client, DICTIONARY);
+            SERVICE.submit(handler);
+            ACTIVE_CONNECTIONS.incrementAndGet();
+        } else {
+            LOGGER.info("Client is waiting.");
+            // For test
+            throw new RuntimeException("Too much clients.");
         }
     }
 }
