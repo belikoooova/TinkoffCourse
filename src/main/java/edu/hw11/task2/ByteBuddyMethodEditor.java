@@ -16,7 +16,7 @@ public class ByteBuddyMethodEditor {
             .withParameters(int.class, int.class)
             .intercept(MethodDelegation.to(MultiplicationInterceptor.class))
             .make()
-            .load(ArithmeticUtils.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
+            .load(ByteBuddyMethodEditor.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
             .getLoaded();
         return res;
     }
