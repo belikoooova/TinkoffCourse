@@ -16,7 +16,7 @@ class Task2Test {
         Class<?> newType = ByteBuddyMethodEditor.getMultiplierClassInsteadOfSum();
 
         // when
-        Object instance = newType.getDeclaredConstructor().newInstance();
+        Object instance = newType.newInstance();
         int res = (int) newType.getMethod("sum", int.class, int.class).invoke(instance, A, B);
 
         // then

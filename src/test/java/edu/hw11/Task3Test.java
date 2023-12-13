@@ -15,7 +15,7 @@ class Task3Test {
         var fibCounter = new FibCounter();
 
         // when
-        Object byteBuddyFibCounter = type.getDeclaredConstructor().newInstance();
+        Object byteBuddyFibCounter = type.newInstance();
 
         // then
         assertEquals(fibCounter.fib(5), type.getMethod("fib", int.class).invoke(byteBuddyFibCounter, 5));
