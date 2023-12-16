@@ -63,14 +63,12 @@ public class ReflectionBenchmark {
         Method lambdaMethod = Supplier.class.getDeclaredMethod(LAMBDA_METHOD_NAME);
         MethodType lambdaMethodType =
             MethodType.methodType(lambdaMethod.getReturnType(), lambdaMethod.getParameterTypes());
-
-        MethodHandles.Lookup lookupp = MethodHandles.lookup().in(Student.class);
+        MethodHandles.Lookup studentLookup = MethodHandles.lookup().in(Student.class);
         MethodType implMethodType = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
         MethodHandle implMethodHandle = lookup.findVirtual(Student.class, method.getName(), implMethodType);
-
         MethodType factoryMethodType = MethodType.methodType(Supplier.class, Student.class);
         CallSite callSite = LambdaMetafactory.metafactory(
-            lookupp,
+            studentLookup,
             LAMBDA_METHOD_NAME,
             factoryMethodType,
             lambdaMethodType,
