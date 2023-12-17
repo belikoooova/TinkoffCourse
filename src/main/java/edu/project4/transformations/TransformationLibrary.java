@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import lombok.experimental.UtilityClass;
 
+@SuppressWarnings("MultipleVariableDeclarations")
 @UtilityClass
 public class TransformationLibrary {
     private static final Random RANDOM = new Random();
@@ -16,7 +17,7 @@ public class TransformationLibrary {
         List<Variation> variations = new ArrayList<>(VARIATIONS_AMOUNT);
         for (int i = 0; i < VARIATIONS_AMOUNT; ++i) {
             Color color = getRandomColor();
-            Shift shift = getRandomShift();
+            ShiftTransformation shift = getRandomShift();
             variations.add(new Variation(transformation, shift, color.r, color.g, color.b));
         }
         return variations;
@@ -26,13 +27,8 @@ public class TransformationLibrary {
         return new Color(RANDOM.nextInt(COLOR_LIMIT), RANDOM.nextInt(COLOR_LIMIT), RANDOM.nextInt(COLOR_LIMIT));
     }
 
-    private static Shift getRandomShift() {
-        double a = 0;
-        double b = 0;
-        double c;
-        double d = 0;
-        double e = 0;
-        double f;
+    private static ShiftTransformation getRandomShift() {
+        double a = 0, b = 0, c, d = 0, e = 0, f;
         boolean areNotCorrect = true;
         while (areNotCorrect) {
             a = RANDOM.nextDouble(-1, 1);
@@ -45,7 +41,7 @@ public class TransformationLibrary {
         }
         c = RANDOM.nextDouble(-1 * BOUND, BOUND);
         f = RANDOM.nextDouble(-1 * BOUND, BOUND);
-        return new Shift(a, b, c, d, e, f);
+        return new ShiftTransformation(a, b, c, d, e, f);
     }
 
     private record Color(int r, int g, int b) {

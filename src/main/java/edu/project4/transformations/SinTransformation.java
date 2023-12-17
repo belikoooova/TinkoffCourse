@@ -2,7 +2,7 @@ package edu.project4.transformations;
 
 import edu.project4.Point;
 
-public class Sin implements Transformation {
+public class SinTransformation implements Transformation {
     private static final double COEF = 1.2;
 
     @Override

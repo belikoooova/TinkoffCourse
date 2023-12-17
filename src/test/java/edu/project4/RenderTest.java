@@ -3,7 +3,7 @@ package edu.project4;
 import edu.project4.renderers.Renderer;
 import edu.project4.renderers.RendererUtils;
 import edu.project4.renderers.SingleThreadRenderer;
-import edu.project4.transformations.Sin;
+import edu.project4.transformations.SinTransformation;
 import edu.project4.transformations.TransformationLibrary;
 import edu.project4.transformations.Variation;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class RenderTest {
     void testSingleThreadRender() {
         // given
         FractalImage canvas = FractalImage.create(WIDTH, HEIGHT);
-        List<Variation> variations = TransformationLibrary.getVariations(new Sin());
+        List<Variation> variations = TransformationLibrary.getVariations(new SinTransformation());
         Renderer renderer = new SingleThreadRenderer();
 
         // when
@@ -46,7 +46,7 @@ class RenderTest {
     void testMultiThreadRender() {
         // given
         FractalImage canvas = FractalImage.create(WIDTH, HEIGHT);
-        List<Variation> variations = TransformationLibrary.getVariations(new Sin());
+        List<Variation> variations = TransformationLibrary.getVariations(new SinTransformation());
         Renderer renderer = new SingleThreadRenderer();
 
         // when

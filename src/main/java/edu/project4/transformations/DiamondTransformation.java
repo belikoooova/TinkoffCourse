@@ -2,7 +2,7 @@ package edu.project4.transformations;
 
 import edu.project4.Point;
 
-public class Diamond implements Transformation {
+public class DiamondTransformation implements Transformation {
     @Override
     public Point apply(Point point) {
         double r = Math.sqrt(point.x() * point.x() + point.y() * point.y());

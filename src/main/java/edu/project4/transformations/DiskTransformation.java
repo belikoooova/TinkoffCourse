@@ -2,15 +2,13 @@ package edu.project4.transformations;
 
 import edu.project4.Point;
 
-public class Hyperbolic implements Transformation {
-    private static final double COEF = 0.5;
-
+public class DiskTransformation implements Transformation {
     @Override
     public Point apply(Point point) {
         double r = Math.sqrt(point.x() * point.x() + point.y() * point.y());
         double t = Math.atan(point.x() / point.y());
-        double newX = Math.sin(t) / r;
-        double newY = r * Math.cos(t);
-        return new Point(COEF * newX, COEF * newY);
+        double newX = (t / Math.PI) * Math.sin(Math.PI * r);
+        double newY = (t / Math.PI) * Math.cos(Math.PI * r);
+        return new Point(newX, newY);
     }
 }
