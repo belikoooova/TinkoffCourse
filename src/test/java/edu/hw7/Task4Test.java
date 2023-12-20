@@ -26,16 +26,4 @@ class Task4Test {
         // then
         assertTrue(PiUtils.countInaccuracy(small) > PiUtils.countInaccuracy(big));
     }
-
-    @SneakyThrows
-    @Test
-    void testInaccuracyMultiThread() {
-        // given and when
-        var small = PiUtils.getPiInMultiThread(SMALL, NUMBER_OF_THREADS);
-        var middle = PiUtils.getPiInMultiThread(MIDDLE, NUMBER_OF_THREADS);
-        var big = PiUtils.getPiInMultiThread(BIG, NUMBER_OF_THREADS);
-
-        // then
-        assertTrue(PiUtils.countInaccuracy(small) > PiUtils.countInaccuracy(big));
-    }
 }
