@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GeneratorsFactory {
-    public static ValueGenerator<?> getGenerator(Class<?> clazz) {
+    public static ValueGenerator getGenerator(Class<?> clazz) {
         if (clazz.equals(String.class)) {
             return new StringGenerator();
         }
