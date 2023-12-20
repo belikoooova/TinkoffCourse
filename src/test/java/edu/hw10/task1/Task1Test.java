@@ -1,5 +1,6 @@
 package edu.hw10.task1;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,8 +11,9 @@ class Task1Test {
     private static final int MIN_RECORD_VALUE = 0;
     private static final int MAX_RECORD_VALUE = 100;
 
+    @SneakyThrows
     @Test
-    void testGenerateTestClass() throws IllegalAccessException {
+    void testGenerateTestClass() {
         // given
         RandomObjectGenerator rog = new RandomObjectGenerator();
 

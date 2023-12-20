@@ -2,7 +2,6 @@ package edu.hw10.task1;
 
 import edu.hw10.task1.annotations.Max;
 import edu.hw10.task1.annotations.Min;
-import edu.hw10.task1.annotations.NotNull;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -11,7 +10,7 @@ import java.util.Random;
 import lombok.SneakyThrows;
 
 public class RandomObjectGenerator {
-    private static final Random RANDOM = new Random();
+    static final Random RANDOM = new Random();
     private static final int CHARS_AMOUNT = 65536;
 
     @SneakyThrows
@@ -29,9 +28,17 @@ public class RandomObjectGenerator {
                     getRandomPrimitiveValue(field.getType(), getMinFromField(field), getMaxFromField(field))
                 );
             } else {
+                ValueGenerator<?> generator = GeneratorsFactory.getGenerator(field.getType());
+                if (generator instanceof MinMaxGenerator<?> minMaxGenerator) {
+                    field.set(
+                        classObject,
+                        minMaxGenerator.generate(getMinFromField(field), getMaxFromField(field))
+                    );
+                    continue;
+                }
                 field.set(
                     classObject,
-                    field.isAnnotationPresent(NotNull.class) ? field.getType().getConstructor().newInstance() : null
+                    generator.generate()
                 );
             }
         }
@@ -62,10 +69,13 @@ public class RandomObjectGenerator {
                     getMaxFromComponent(component)
                 );
             } else {
-                parameters[index++] =
-                    component.isAnnotationPresent(NotNull.class)
-                        ? component.getType().getConstructor().newInstance()
-                        : null;
+                ValueGenerator<?> generator = GeneratorsFactory.getGenerator(component.getType());
+                if (generator instanceof MinMaxGenerator<?> minMaxGenerator) {
+                    parameters[index++] =
+                        minMaxGenerator.generate(getMinFromComponent(component), getMaxFromComponent(component));
+                    continue;
+                }
+                parameters[index++] = generator.generate();
             }
         }
 
