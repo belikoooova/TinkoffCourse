@@ -40,6 +40,8 @@
         <junit.version>5.10.0</junit.version>
         <assertj.version>3.24.2</assertj.version>
 
+        <jmh.version>1.37</jmh.version>
+
         <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
 
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -72,6 +74,19 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- JMH -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jmh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
